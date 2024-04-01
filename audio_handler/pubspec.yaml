@@ -1,0 +1,43 @@
+name: audio_handler
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.0.0'
+
+dependencies:
+  audio_session: ^0.1.18
+  datatype_extensions:
+    git:
+      url: git@gitlab.ub.uni-bielefeld.de:bi-vital/flutter_packages.git
+      path: datatype_extensions
+  ffmpeg_kit_flutter: ^6.0.3
+  file_manager:
+    git:
+      url: git@gitlab.ub.uni-bielefeld.de:bi-vital/flutter_packages.git
+      path: file_manager
+  file_picker: ^5.2.10
+  flutter:
+    sdk: flutter
+  id3tag: ^0.2.0
+  just_audio: ^0.9.36
+  just_audio_background: ^0.0.1-beta.11
+  media_info: ^0.12.0+2
+  path: ^1.8.2
+  path_provider: ^2.1.2
+  platform_adaptivity:
+    git:
+      url: git@gitlab.ub.uni-bielefeld.de:bi-vital/flutter_packages.git
+      path: platform_adaptivity
+  shared_preferences: ^2.2.2
+
+dev_dependencies:
+  custom_lint: ^0.6.0
+  flutter_lints: ^3.0.1
+  linter_rules:
+    git:
+      url: git@gitlab.ub.uni-bielefeld.de:bi-vital/flutter_packages.git
+      path: linter_rules
+
+flutter:
+  assets:
+    - assets/

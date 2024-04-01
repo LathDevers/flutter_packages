@@ -1,0 +1,17 @@
+name: glassmorphism
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  custom_lint: ^0.6.0
+  flutter_lints: ^3.0.1
+  linter_rules:
+    git:
+      url: git@gitlab.ub.uni-bielefeld.de:bi-vital/flutter_packages.git
+      path: linter_rules

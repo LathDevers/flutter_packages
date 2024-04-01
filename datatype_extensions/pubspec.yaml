@@ -1,0 +1,26 @@
+name: datatype_extensions
+publish_to: none
+
+environment:
+  sdk: '>=3.0.0'
+
+dependencies:
+  basics: ^0.10.0
+  collection: ^1.17.2
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.18.1
+  platform_adaptivity:
+    git:
+      url: git@gitlab.ub.uni-bielefeld.de:bi-vital/flutter_packages.git
+      path: platform_adaptivity
+
+dev_dependencies:
+  custom_lint: ^0.6.0
+  flutter_lints: ^3.0.1
+  linter_rules:
+    git:
+      url: git@gitlab.ub.uni-bielefeld.de:bi-vital/flutter_packages.git
+      path: linter_rules

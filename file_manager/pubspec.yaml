@@ -1,0 +1,24 @@
+name: file_manager
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.0.0'
+
+dependencies:
+  archive: ^3.4.10
+  csv: ^5.1.1
+  intl: ^0.18.1
+  path_provider: ^2.1.2
+  share_plus: ^6.3.4
+  toast:
+    git:
+      url: git@gitlab.ub.uni-bielefeld.de:bi-vital/flutter_packages.git
+      path: toast
+
+dev_dependencies:
+  custom_lint: ^0.6.0
+  flutter_lints: ^3.0.1
+  linter_rules:
+    git:
+      url: git@gitlab.ub.uni-bielefeld.de:bi-vital/flutter_packages.git
+      path: linter_rules

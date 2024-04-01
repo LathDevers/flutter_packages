@@ -1,0 +1,15 @@
+name: linter_rules
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.0.0'
+
+dependencies:
+  analyzer: ^6.4.1
+  analyzer_plugin: ^0.11.3
+  custom_lint_builder: ^0.6.1
+  pub_semver: ^2.1.4
+
+dev_dependencies:
+  custom_lint:
+  flutter_lints: ^3.0.1

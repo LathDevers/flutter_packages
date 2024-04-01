@@ -1,0 +1,26 @@
+name: settings_section
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.0.0'
+
+dependencies:
+  datatype_extensions:
+    git:
+      url: git@gitlab.ub.uni-bielefeld.de:bi-vital/flutter_packages.git
+      path: datatype_extensions
+  flutter:
+    sdk: flutter
+  platform_adaptivity:
+    git:
+      url: git@gitlab.ub.uni-bielefeld.de:bi-vital/flutter_packages.git
+      path: platform_adaptivity
+  shared_preferences: ^2.2.2
+
+dev_dependencies:
+  custom_lint: ^0.6.0
+  flutter_lints: ^3.0.1
+  linter_rules:
+    git:
+      url: git@gitlab.ub.uni-bielefeld.de:bi-vital/flutter_packages.git
+      path: linter_rules

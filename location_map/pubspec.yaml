@@ -1,0 +1,30 @@
+name: location_map
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.0.0'
+
+dependencies:
+  cached_network_image: ^3.3.1
+  datatype_extensions:
+    git:
+      url: git@gitlab.ub.uni-bielefeld.de:bi-vital/flutter_packages.git
+      path: datatype_extensions
+  flutter:
+    sdk: flutter
+  flutter_map: ^4.0.0
+  intl: ^0.18.1
+  latlong2: ^0.8.2
+  location: ^5.0.3
+  platform_adaptivity:
+    git:
+      url: git@gitlab.ub.uni-bielefeld.de:bi-vital/flutter_packages.git
+      path: platform_adaptivity
+
+dev_dependencies:
+  custom_lint: ^0.6.0
+  flutter_lints: ^3.0.1
+  linter_rules:
+    git:
+      url: git@gitlab.ub.uni-bielefeld.de:bi-vital/flutter_packages.git
+      path: linter_rules
