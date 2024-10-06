@@ -193,7 +193,7 @@ class AdaptiveListTile extends StatelessWidget {
             leading: _leading,
             trailing: _trailing,
             onPressed: enabled ? onTap : null,
-            tileColor: tileColor != null ? fluent.ButtonState.all(tileColor!) : null,
+            tileColor: tileColor != null ? fluent.WidgetStateProperty.all(tileColor!) : null,
             contentPadding: contentPadding ?? _kContentPaddingCupertino,
           ),
         ),

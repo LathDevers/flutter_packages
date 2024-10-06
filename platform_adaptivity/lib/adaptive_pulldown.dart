@@ -277,7 +277,7 @@ class AdaptivePullDownButtonState extends State<AdaptivePullDownButton> {
           onCanceled?.call();
           return null;
         }
-        _onSelect(context, newValue, items);
+        if (context.mounted) _onSelect(context, newValue, items);
       });
     }
   }

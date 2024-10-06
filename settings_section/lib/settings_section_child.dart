@@ -433,7 +433,7 @@ class SettingsListTileDropDown<T> extends StatelessWidget implements SettingsSec
             children: [
               Text(toText?.call(value) ?? value.toString()),
               const SizedBox(width: 8),
-              elements[value]!.icon,
+              elements[value]!.icon!,
             ],
           );
         return Text(toText?.call(value) ?? value.toString());

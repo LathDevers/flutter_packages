@@ -279,9 +279,9 @@ class AdaptiveSlider extends StatelessWidget {
                 min: min,
                 max: max,
                 style: fluent.SliderThemeData(
-                  activeColor: fluent.ButtonState.all(activeColor),
-                  inactiveColor: fluent.ButtonState.all(inactiveColor),
-                  thumbColor: fluent.ButtonState.all(thumbColor),
+                  activeColor: fluent.WidgetStateProperty.all(activeColor),
+                  inactiveColor: fluent.WidgetStateProperty.all(inactiveColor),
+                  thumbColor: fluent.WidgetStateProperty.all(thumbColor),
                 ),
               ),
             ),

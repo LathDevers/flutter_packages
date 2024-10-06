@@ -227,7 +227,7 @@ class _MaterialTabScaffoldState extends State<MaterialTabScaffold> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: widget.pages[currentPageIndex].onPop == null,
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, _) {
         // if popped, pop request must be coming from somewhere else in the code. onPop actions must be implemented there
         if (!didPop) widget.pages[currentPageIndex].onPop?.call(_changePage);
       },
@@ -569,7 +569,7 @@ class _MyCupertinoTabScaffoldState extends State<MyCupertinoTabScaffold> {
     final Color inactiveColor = HSLColor.fromColor(Theme.of(context).disabledColor).withLightness(.45).toColor();
     return PopScope(
       canPop: widget.pages[controller.index].onPop == null,
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, _) {
         // if popped, pop request must be coming from somewhere else in the code. onPop actions must be implemented there
         if (!didPop) widget.pages[controller.index].onPop?.call(_changePage);
       },
