@@ -1054,4 +1054,52 @@ abstract final class AdaptiveIcons {
         CitecPlatform.fluent => throw UnimplementedError(),
         _ => throw UnimplementedError(),
       };
+
+  /// <i class="material-icons md-36">directions_car_filled</i> &#x2014; material icon named "directions car filled". <br> <i class='cupertino-icons md-36'>car_fill</i> &#x2014; Cupertino icon named "car_fill".
+  static IconData get car_fill => switch (designPlatform) {
+        CitecPlatform.material => Icons.directions_car_filled,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.car_fill,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons-round md-36">credit_card</i> &#x2014; material icon named "credit card" (round). <br> <i class='cupertino-icons md-36'>creditcard_fill</i> &#x2014; Cupertino icon named "creditcard_fill".
+  static IconData get card_fill => switch (designPlatform) {
+        CitecPlatform.material => Icons.credit_card_rounded,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.creditcard_fill,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons-round md-36">credit_card</i> &#x2014; material icon named "credit card" (round). <br> <i class='cupertino-icons md-36'>creditcard_fill</i> &#x2014; Cupertino icon named "creditcard_fill".
+  static IconData get wrench_fill => switch (designPlatform) {
+        CitecPlatform.material => CupertinoIcons.wrench_fill,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.wrench_fill,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons-round md-36">credit_card</i> &#x2014; material icon named "credit card" (round). <br> <i class='cupertino-icons md-36'>creditcard_fill</i> &#x2014; Cupertino icon named "creditcard_fill".
+  static IconData get fuelpump_fill => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.fuelpumpfill,
+        CitecPlatform.ios || CitecPlatform.macos => AppIcons.fuelpumpfill,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons-round md-36">credit_card</i> &#x2014; material icon named "credit card" (round). <br> <i class='cupertino-icons md-36'>creditcard_fill</i> &#x2014; Cupertino icon named "creditcard_fill".
+  static IconData get stethoscope => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.stethoscope,
+        CitecPlatform.ios || CitecPlatform.macos => AppIcons.stethoscope,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons-round md-36">tire_repair</i> &#x2014; material icon named "tire repair" (round). <br> <i class='cupertino-icons md-36'>creditcard_fill</i> &#x2014; Cupertino icon named "creditcard_fill".
+  static IconData get tire => switch (designPlatform) {
+        CitecPlatform.material => Icons.tire_repair_rounded,
+        CitecPlatform.ios || CitecPlatform.macos => AppIcons.tire,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
 }

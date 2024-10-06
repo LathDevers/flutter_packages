@@ -21,7 +21,7 @@ class SettingsSection extends StatefulWidget {
     this.subtitle,
     required this.children,
     this.color,
-    this.supressExpansion = false,
+    this.isExpandable = true,
     this.margin = const EdgeInsets.only(
       left: kDefaultMargin,
       top: spaceBetweenSections,
@@ -40,7 +40,7 @@ class SettingsSection extends StatefulWidget {
   final Widget? subtitle;
   final List<SettingsSectionChild> children;
   final Color? color;
-  final bool supressExpansion;
+  final bool isExpandable;
   final EdgeInsets margin;
   final bool saveExpandedState;
 
@@ -55,7 +55,7 @@ class _SettingsSectionState extends State<SettingsSection> {
 
   @override
   void initState() {
-    _supressExpansion = widget.title == null || widget.supressExpansion;
+    _supressExpansion = widget.title == null || !widget.isExpandable;
     _initiallyExpanded = widget.title == null || widget.initialExpanded;
     if (!_supressExpansion && widget.saveExpandedState) {
       if (isExpandeds[_makeKey()] != null)
@@ -117,7 +117,7 @@ class _SettingsSectionState extends State<SettingsSection> {
     final List<Widget> result = [];
     final List<SettingsSectionChild> group = [];
     for (final SettingsSectionChild subsection in children) {
-      if (subsection is! SettingsSectionSubGroup && subsection is! SettingsDescription) {
+      if (subsection is! SettingsSectionSubGroup && subsection is! SettingsFooter) {
         // temp save unwrapped subsection
         group.add(subsection);
       } else {
@@ -134,7 +134,7 @@ class _SettingsSectionState extends State<SettingsSection> {
         if (subsection is SettingsSectionSubGroup) {
           // add wrapped subsection
           result.add(subsection);
-        } else if (subsection is SettingsDescription) {
+        } else if (subsection is SettingsFooter) {
           // add description
           result.add(subsection);
         }

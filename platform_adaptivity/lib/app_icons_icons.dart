@@ -11,18 +11,15 @@
 ///      fonts:
 ///       - asset: fonts/AppIcons.ttf
 ///
+/// 
 ///
-///
-library platform_adaptivity;
-
 import 'package:flutter/widgets.dart';
 
-@staticIconProvider
-abstract final class AppIcons {
-  const AppIcons._();
+class AppIcons {
+  AppIcons._();
 
   static const _kFontFam = 'AppIcons';
-  static const String _kFontPkg = 'platform_adaptivity';
+  static const String? _kFontPkg = null;
 
   static const IconData binocularsfill = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData bivital = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
@@ -62,4 +59,7 @@ abstract final class AppIcons {
   static const IconData vitalsigns = IconData(0xe823, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData waveformpathecgrectangle = IconData(0xe824, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData zip = IconData(0xe825, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData tire = IconData(0xe826, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData stethoscope = IconData(0xe827, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData fuelpumpfill = IconData(0xe828, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

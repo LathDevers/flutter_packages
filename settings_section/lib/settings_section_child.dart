@@ -445,8 +445,8 @@ class SettingsListTileDropDown<T> extends StatelessWidget implements SettingsSec
   }
 }
 
-class SettingsDescription extends StatelessWidget implements SettingsSectionChild {
-  const SettingsDescription({
+class SettingsFooter extends StatelessWidget implements SettingsSectionChild {
+  const SettingsFooter({
     super.key,
     required this.text,
   });
