@@ -9,14 +9,15 @@ library;
 
 import 'dart:async';
 import 'dart:collection';
+import 'dart:math';
 
 import 'package:datatype_extensions/listqueue_extensions.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:platform_adaptivity/adaptive_icons.dart';
 import 'package:location_map/location_services.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/plugin_api.dart';
 import 'package:intl/intl.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -156,7 +157,7 @@ class MyMapState extends State<MyMap> {
     super.dispose();
   }
 
-  MoveAndRotateResult _offsetMoveAndRotate(
+  ({bool moveSuccess, bool rotateSuccess}) _offsetMoveAndRotate(
     (double, double) offset,
     LatLng center,
     double zoom,
@@ -183,32 +184,22 @@ class MyMapState extends State<MyMap> {
             FlutterMap(
               mapController: mapController,
               options: MapOptions(
-                center: LatLng(latitude + widget.centerOffset.$1, longitude + widget.centerOffset.$2),
-                zoom: 13.0,
+                initialCenter: LatLng(latitude + widget.centerOffset.$1, longitude + widget.centerOffset.$2),
+                initialZoom: 13.0,
               ),
-              nonRotatedChildren: [
-                if (widget.showZoomButtons)
-                  FlutterMapZoomButtons(
-                    minZoom: 4,
-                    maxZoom: 19,
-                    mini: true,
-                    padding: 10,
-                    alignment: Alignment.bottomRight,
-                  ),
-              ],
               children: [
                 terrain
                     ? TileLayer(
                         wmsOptions: WMSTileLayerOptions(
                           baseUrl: 'https://{s}.s2maps-tiles.eu/wms/?',
-                          layers: ['s2cloudless-2018_3857'],
+                          layers: const ['s2cloudless-2018_3857'],
                         ),
                         subdomains: const ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'],
                       ) // satellite view
                     : ColorFiltered(
                         colorFilter: Theme.of(context).brightness == Brightness.light ? identity : invertDark,
                         child: TileLayer(
-                          urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                          urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                           subdomains: const ['a', 'b', 'c'],
                           tileProvider: _CachedTileProvider(),
                         ),
@@ -228,9 +219,9 @@ class MyMapState extends State<MyMap> {
                         width: widget.markerSize,
                         height: widget.markerSize * 2,
                         point: widget.routeCoordinates != null ? widget.routeCoordinates!.first : widget.routePolylines!.first.points.first,
-                        builder: (BuildContext context) => _RouteMarker(
+                        child: _RouteMarker(
                           size: widget.markerSize,
-                          bcgColor: widget.markerBcgColor ?? Theme.of(context).colorScheme.background,
+                          bcgColor: widget.markerBcgColor ?? Theme.of(context).colorScheme.surface,
                           iconColor: widget.markerColor ?? Theme.of(context).colorScheme.primary,
                           isStart: true,
                         ),
@@ -240,15 +231,23 @@ class MyMapState extends State<MyMap> {
                         width: widget.markerSize,
                         height: widget.markerSize * 2,
                         point: widget.routeCoordinates != null ? widget.routeCoordinates!.last : widget.routePolylines!.last.points.last,
-                        builder: (ctx) => _RouteMarker(
+                        child: _RouteMarker(
                           size: widget.markerSize,
-                          bcgColor: widget.markerBcgColor ?? Theme.of(context).colorScheme.background,
+                          bcgColor: widget.markerBcgColor ?? Theme.of(context).colorScheme.surface,
                           iconColor: widget.markerColor ?? Theme.of(context).colorScheme.primary,
                           isStart: false,
                         ),
                       ), // Finish marker
                   ],
                 ),
+                if (widget.showZoomButtons)
+                  const FlutterMapZoomButtons(
+                    minZoom: 4,
+                    maxZoom: 19,
+                    mini: true,
+                    padding: 10,
+                    alignment: Alignment.bottomRight,
+                  ),
               ],
             ),
             Positioned(
@@ -258,7 +257,7 @@ class MyMapState extends State<MyMap> {
                 children: [
                   if (!widget.alwaysActualizeCurrentLocation && widget.showLocationActualizeButton)
                     FloatingActionButton(
-                      backgroundColor: Theme.of(context).colorScheme.background,
+                      backgroundColor: Theme.of(context).colorScheme.surface,
                       onPressed: () => _offsetMoveAndRotate(widget.centerOffset, LatLng(latitude, longitude), 18, 0),
                       child: Icon(
                         Icons.gps_fixed,
@@ -268,7 +267,7 @@ class MyMapState extends State<MyMap> {
                   if (widget.showLayersButton || !widget.alwaysActualizeCurrentLocation) const SizedBox(height: 20),
                   if (widget.showLayersButton)
                     FloatingActionButton(
-                      backgroundColor: Theme.of(context).colorScheme.background,
+                      backgroundColor: Theme.of(context).colorScheme.surface,
                       onPressed: () => setState(() => terrain = !terrain),
                       child: Icon(
                         CupertinoIcons.layers_fill,
@@ -283,7 +282,7 @@ class MyMapState extends State<MyMap> {
                 left: 20,
                 bottom: widget.fromLTRBClearance[3] + 35,
                 child: FloatingActionButton(
-                  backgroundColor: Theme.of(context).colorScheme.background, //widget.speedometerSize
+                  backgroundColor: Theme.of(context).colorScheme.surface, //widget.speedometerSize
                   onPressed: () {},
                   child: Center(
                     child: Column(
@@ -320,7 +319,7 @@ class MyMapState extends State<MyMap> {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Theme.of(context).colorScheme.background,
+                      color: Theme.of(context).colorScheme.surface,
                     ),
                     padding: const EdgeInsets.only(top: 3, bottom: 3, left: 10, right: 10),
                     child: Text(
@@ -404,7 +403,7 @@ class PulsatingLocationMarker extends Marker {
   }) : super(
           width: size * _pulseMaxFactor,
           height: size * _pulseMaxFactor * 2,
-          builder: (context) => PulsatingLocationMarkerWidget(
+          child: PulsatingLocationMarkerWidget(
             markerSize: size,
             markerColor: color,
           ),
@@ -488,37 +487,26 @@ class _PulsatingLocationMarkerState extends State<PulsatingLocationMarkerWidget>
 }
 
 class FlutterMapZoomButtons extends StatelessWidget {
-  FlutterMapZoomButtons({
+  const FlutterMapZoomButtons({
     super.key,
     this.minZoom = 1,
     this.maxZoom = 18,
     this.mini = true,
     this.padding = 2.0,
     this.alignment = Alignment.topRight,
-    /*this.zoomInColor,
-    this.zoomInColorIcon,
-    this.zoomInIcon = AdaptiveIcons.plus,
-    this.zoomOutColor,
-    this.zoomOutColorIcon,
-    this.zoomOutIcon = AdaptiveIcons.minus,*/
   });
 
-  final int minZoom;
-  final int maxZoom;
+  final double minZoom;
+  final double maxZoom;
   final bool mini;
   final double padding;
   final Alignment alignment;
-  final Color? zoomInColor = null;
-  final Color? zoomInColorIcon = null;
-  final Color? zoomOutColor = null;
-  final Color? zoomOutColorIcon = null;
-  final IconData zoomInIcon = AdaptiveIcons.plus;
-  final IconData zoomOutIcon = AdaptiveIcons.minus;
-  final FitBoundsOptions options = const FitBoundsOptions(padding: EdgeInsets.all(12));
 
   @override
   Widget build(BuildContext context) {
-    final map = FlutterMapState.maybeOf(context)!;
+    final controller = MapController.of(context);
+    final camera = MapCamera.of(context);
+    final theme = Theme.of(context);
     return Align(
       alignment: alignment,
       child: Column(
@@ -529,18 +517,12 @@ class FlutterMapZoomButtons extends StatelessWidget {
             child: FloatingActionButton(
               heroTag: 'zoomInButton',
               mini: mini,
-              backgroundColor: zoomInColor ?? Theme.of(context).primaryColor,
+              backgroundColor: theme.primaryColor,
               onPressed: () {
-                final bounds = map.bounds;
-                final centerZoom = map.getBoundsCenterZoom(bounds, options);
-                var zoom = centerZoom.zoom + 1;
-                if (zoom < minZoom) {
-                  zoom = minZoom as double;
-                } else {
-                  map.move(centerZoom.center, zoom, source: MapEventSource.custom);
-                }
+                final double zoom = min(camera.zoom + 1, maxZoom);
+                controller.move(camera.center, zoom);
               },
-              child: Icon(zoomInIcon, color: zoomInColorIcon ?? IconTheme.of(context).color),
+              child: Icon(AdaptiveIcons.plus, color: theme.iconTheme.color),
             ),
           ),
           Padding(
@@ -548,18 +530,12 @@ class FlutterMapZoomButtons extends StatelessWidget {
             child: FloatingActionButton(
               heroTag: 'zoomOutButton',
               mini: mini,
-              backgroundColor: zoomOutColor ?? Theme.of(context).primaryColor,
+              backgroundColor: theme.primaryColor,
               onPressed: () {
-                final bounds = map.bounds;
-                final centerZoom = map.getBoundsCenterZoom(bounds, options);
-                var zoom = centerZoom.zoom - 1;
-                if (zoom > maxZoom) {
-                  zoom = maxZoom as double;
-                } else {
-                  map.move(centerZoom.center, zoom, source: MapEventSource.custom);
-                }
+                final zoom = max(camera.zoom - 1, minZoom);
+                controller.move(camera.center, zoom);
               },
-              child: Icon(zoomOutIcon, color: zoomOutColorIcon ?? IconTheme.of(context).color),
+              child: Icon(AdaptiveIcons.minus, color: theme.iconTheme.color),
             ),
           ),
         ],

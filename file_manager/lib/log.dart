@@ -160,7 +160,7 @@ class LogData {
   /// Closes files and creates a ZIP folder for sharing
   Future<void> endMeasWithShare(bool deleteOriginal) async {
     await closeFiles();
-    await downloadFiles(_files.values.toList(), deleteOriginal, _startTime);
+    await downloadFiles(_files.values.toList(), deleteOriginal: deleteOriginal, date: _startTime);
   }
 
   /// This method dumpes data buffers (i.e. writes the last bit of data to the measurement files).

@@ -221,7 +221,7 @@ class BiVitalDialog<T> extends StatelessWidget {
             left: insetPadding.left / 2,
             child: FloatingActionButton(
               heroTag: 'close',
-              backgroundColor: Theme.of(context).colorScheme.background,
+              backgroundColor: Theme.of(context).colorScheme.surface,
               onPressed: () => AdaptiveNavigator.pop(context),
               child: Icon(
                 AdaptiveIcons.xmark,

@@ -47,9 +47,9 @@ class AdaptiveCheckbox extends StatelessWidget {
             shape: shape,
             tristate: false,
             checkColor: tickColor,
-            fillColor: MaterialStateProperty.resolveWith((states) {
+            fillColor: WidgetStateProperty.resolveWith((states) {
               if (!enabled) return deactivatedColor;
-              if (states.contains(MaterialState.selected)) return activeColor;
+              if (states.contains(WidgetState.selected)) return activeColor;
               return Colors.transparent;
             }),
           ),

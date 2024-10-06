@@ -11,9 +11,8 @@ class Polyline extends flutter_map.Polyline {
     super.borderColor = const Color(0xFFFFFF00),
     super.gradientColors,
     super.colorsStop,
-    super.isDotted = false,
     super.strokeCap = StrokeCap.round,
     super.strokeJoin = StrokeJoin.round,
     super.useStrokeWidthInMeter = false,
-  });
+  }) : super(pattern: const flutter_map.StrokePattern.solid());
 }

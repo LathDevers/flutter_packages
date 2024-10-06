@@ -81,11 +81,11 @@ class AdaptiveSegmented<T> extends StatelessWidget {
           .toList(),
       selected: {value},
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected)) return Theme.of(context).colorScheme.primary;
+        backgroundColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) return Theme.of(context).colorScheme.primary;
           return null;
         }),
-        side: MaterialStateProperty.resolveWith((states) {
+        side: WidgetStateProperty.resolveWith((states) {
           return BorderSide(color: Theme.of(context).dividerColor);
         }),
         visualDensity: VisualDensity.compact,

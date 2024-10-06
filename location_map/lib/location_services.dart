@@ -13,7 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 
-final LatLng _kLocation = LatLng(52.0454, 8.4924);
+const LatLng _kLocation = LatLng(52.0454, 8.4924);
 
 /// Get location information of device.
 ///

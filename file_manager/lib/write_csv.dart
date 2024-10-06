@@ -76,7 +76,7 @@ class WriteCSV {
       zipPath = userName.isUsername ? '$dirPath/${dateString}_Measurement_$userName.zip' : '$dirPath/${dateString}_Measurement.zip';
       final ZipFileEncoder encoder = ZipFileEncoder()..create(zipPath);
       await encoder.addFile(_file!);
-      encoder.close();
+      await encoder.close();
       // share compressed zip file
       final ShareResult shareResult = await Share.shareXFiles([XFile(zipPath)]);
       if (shareResult.status == ShareResultStatus.dismissed) result = false;

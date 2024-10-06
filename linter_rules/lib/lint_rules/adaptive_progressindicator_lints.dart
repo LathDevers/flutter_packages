@@ -1,4 +1,4 @@
-import 'package:analyzer/error/error.dart';
+import 'package:analyzer/error/error.dart' show AnalysisError;
 import 'package:analyzer/error/listener.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
@@ -23,7 +23,7 @@ class UseAdaptiveCircularProgressIndicator extends DartLintRule {
     context.registry.addInstanceCreationExpression((node) {
       final element = node.staticType;
       if (element == null || element.toString() != _wrongCircular) return;
-      reporter.reportErrorForNode(code, node.constructorName);
+      reporter.atNode(node.constructorName, code);
     });
   }
 
@@ -51,7 +51,7 @@ class UseAdaptiveProgressBar extends DartLintRule {
     context.registry.addInstanceCreationExpression((node) {
       final element = node.staticType;
       if (element == null || element.toString() != _wrongLinear) return;
-      reporter.reportErrorForNode(code, node.constructorName);
+      reporter.atNode(node.constructorName, code);
     });
   }
 

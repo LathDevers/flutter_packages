@@ -1,9 +1,11 @@
 import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fluent;
 import 'package:platform_adaptivity/adaptive_widgets.dart';
+import 'package:datatype_extensions/color_extensions.dart';
 
 const double _kLeadingSize = 28;
 const double _kMinLeadingWidth = 24;
@@ -22,7 +24,6 @@ class AdaptiveListTile extends StatelessWidget {
     this.trailing,
     this.dense = false,
     this.contentPadding,
-    this.enabled = true,
     this.onTap,
     this.onLongPress,
     this.tileColor,
@@ -40,7 +41,6 @@ class AdaptiveListTile extends StatelessWidget {
     this.trailing,
     this.dense = false,
     this.contentPadding,
-    this.enabled = true,
     this.onTap,
     this.onLongPress,
     this.tileColor,
@@ -59,7 +59,6 @@ class AdaptiveListTile extends StatelessWidget {
     this.trailing,
     this.dense = false,
     this.contentPadding,
-    this.enabled = true,
     this.onTap,
     this.onLongPress,
     this.tileColor,
@@ -78,7 +77,6 @@ class AdaptiveListTile extends StatelessWidget {
     this.trailing,
     this.dense = false,
     this.contentPadding,
-    this.enabled = true,
     this.onTap,
     this.onLongPress,
     this.tileColor,
@@ -134,21 +132,12 @@ class AdaptiveListTile extends StatelessWidget {
   /// Defaults to `const EdgeInsets.symmetric(horizontal: 16, vertical: 13)` on Cupertino.
   final EdgeInsetsGeometry? contentPadding;
 
-  /// Whether this list tile is interactive.
-  ///
-  /// If false, this list tile is styled with the disabled color from the current [Theme] and the [onTap] and [onLongPress] callbacks are inoperative.
-  final bool enabled;
-
   /// Called when the user taps this list tile.
-  ///
-  /// Inoperative if [enabled] is false.
   ///
   /// If this is a Future<void> Function(), then the [CupertinoListTile] remains activated until the returned future is awaited.
   final void Function()? onTap;
 
   /// Called when the user long-presses on this list tile.
-  ///
-  /// Inoperative if [enabled] is false.
   final void Function()? onLongPress;
 
   /// Defines the background color of ListTile.
@@ -163,6 +152,7 @@ class AdaptiveListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool enabled = onTap != null || onLongPress != null;
     return switch (designPlatform) {
       CitecPlatform.material => _MaterialListTile(
           key: key,
@@ -370,7 +360,7 @@ class _MaterialListTile extends StatelessWidget {
   }
 }
 
-class _CupertinoListTile extends StatelessWidget {
+class _CupertinoListTile extends StatefulWidget {
   const _CupertinoListTile({
     super.key,
     this.leading,
@@ -433,30 +423,58 @@ class _CupertinoListTile extends StatelessWidget {
   final Color? tileColor;
 
   @override
+  State<_CupertinoListTile> createState() => _CupertinoListTileState();
+}
+
+class _CupertinoListTileState extends State<_CupertinoListTile> {
+  bool _hovered = false;
+
+  void _handleMouseEnter(PointerEnterEvent event) {
+    if (!_hovered) {
+      setState(() {
+        _hovered = true;
+      });
+    }
+  }
+
+  void _handleMouseExit(PointerExitEvent event) {
+    if (_hovered) {
+      setState(() {
+        _hovered = false;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return CupertinoListTile(
-      title: title, // maxLines: 1, overflow: TextOverflow.ellipsis,
-      subtitle: _subtitle, // maxLines: 1, overflow: TextOverflow.ellipsis, see Apple Design Guidelines
-      additionalInfo: additionalInfo,
-      leading: leading,
-      trailing: trailing,
-      onTap: enabled ? onTap : null,
-      backgroundColor: tileColor,
-      padding: contentPadding ?? _kContentPaddingCupertino,
-      leadingSize: leadingSize,
+    final enabled = widget.enabled;
+    return MouseRegion(
+      onEnter: enabled ? _handleMouseEnter : null,
+      onExit: enabled ? _handleMouseExit : null,
+      child: CupertinoListTile(
+        title: widget.title, // maxLines: 1, overflow: TextOverflow.ellipsis,
+        subtitle: _subtitle, // maxLines: 1, overflow: TextOverflow.ellipsis, see Apple Design Guidelines
+        additionalInfo: widget.additionalInfo,
+        leading: widget.leading,
+        trailing: widget.trailing,
+        onTap: widget.enabled ? widget.onTap : null,
+        backgroundColor: _hovered ? widget.tileColor + CupertinoColors.secondarySystemFill.resolveFrom(context) : widget.tileColor,
+        padding: widget.contentPadding ?? _kContentPaddingCupertino,
+        leadingSize: widget.leadingSize,
+      ),
     );
   }
 
   Widget? get _subtitle {
-    if (subtitle == null) return null;
-    if (subtitle is Text) {
-      final List<String> rows = (subtitle! as Text).data!.split('\n');
-      if (rows.length == 1) return subtitle!;
+    if (widget.subtitle == null) return null;
+    if (widget.subtitle is Text) {
+      final List<String> rows = (widget.subtitle! as Text).data!.split('\n');
+      if (rows.length == 1) return widget.subtitle!;
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: rows.map(Text.new).toList(),
       );
     }
-    return subtitle;
+    return widget.subtitle;
   }
 }

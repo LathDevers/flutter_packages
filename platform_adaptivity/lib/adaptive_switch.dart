@@ -7,7 +7,7 @@ Color _primaryColor(BuildContext context, bool isDestructive) {
   return Theme.of(context).colorScheme.primary;
 }
 
-Color _thumbColor(BuildContext context, Set<MaterialState> states, bool isDestructive, bool isEnabled) {
+Color _thumbColor(BuildContext context, Set<WidgetState> states, bool isDestructive, bool isEnabled) {
   if (Theme.of(context).brightness == Brightness.light) {
     return _lightThumbColor(context, states, isDestructive, isEnabled);
   } else {
@@ -15,8 +15,8 @@ Color _thumbColor(BuildContext context, Set<MaterialState> states, bool isDestru
   }
 }
 
-Color _lightThumbColor(BuildContext context, Set<MaterialState> states, bool isDestructive, bool isEnabled) {
-  if (states.contains(MaterialState.selected)) {
+Color _lightThumbColor(BuildContext context, Set<WidgetState> states, bool isDestructive, bool isEnabled) {
+  if (states.contains(WidgetState.selected)) {
     if (isEnabled)
       return const Color(0xFFFFFFFF);
     else
@@ -30,17 +30,17 @@ Color _lightThumbColor(BuildContext context, Set<MaterialState> states, bool isD
   }
 }
 
-Color _darkThumbColor(BuildContext context, Set<MaterialState> states, bool isDestructive, bool isEnabled) {
+Color _darkThumbColor(BuildContext context, Set<WidgetState> states, bool isDestructive, bool isEnabled) {
   if (isEnabled) {
-    if (states.contains(MaterialState.selected)) return _primaryColor(context, isDestructive);
+    if (states.contains(WidgetState.selected)) return _primaryColor(context, isDestructive);
     return HSLColor.fromColor(_primaryColor(context, isDestructive)).withSaturation(.1).withLightness(.6).toColor();
   } else {
-    if (states.contains(MaterialState.selected)) return Theme.of(context).colorScheme.background;
+    if (states.contains(WidgetState.selected)) return Theme.of(context).colorScheme.surface;
     return HSLColor.fromColor(_primaryColor(context, isDestructive)).withSaturation(.15).withLightness(.6).toColor().withOpacity(.5);
   }
 }
 
-Color _trackColor(BuildContext context, Set<MaterialState> states, bool isDestructive, bool isEnabled) {
+Color _trackColor(BuildContext context, Set<WidgetState> states, bool isDestructive, bool isEnabled) {
   if (Theme.of(context).brightness == Brightness.light) {
     return _lightTrackColor(context, states, isDestructive, isEnabled);
   } else {
@@ -48,8 +48,8 @@ Color _trackColor(BuildContext context, Set<MaterialState> states, bool isDestru
   }
 }
 
-Color _lightTrackColor(BuildContext context, Set<MaterialState> states, bool isDestructive, bool isEnabled) {
-  if (states.contains(MaterialState.selected)) {
+Color _lightTrackColor(BuildContext context, Set<WidgetState> states, bool isDestructive, bool isEnabled) {
+  if (states.contains(WidgetState.selected)) {
     if (isEnabled)
       return _primaryColor(context, isDestructive);
     else
@@ -61,8 +61,8 @@ Color _lightTrackColor(BuildContext context, Set<MaterialState> states, bool isD
     return Colors.transparent;
 }
 
-Color _darkTrackColor(BuildContext context, Set<MaterialState> states, bool isDestructive, bool isEnabled) {
-  if (states.contains(MaterialState.selected)) {
+Color _darkTrackColor(BuildContext context, Set<WidgetState> states, bool isDestructive, bool isEnabled) {
+  if (states.contains(WidgetState.selected)) {
     if (isEnabled)
       return HSLColor.fromColor(_primaryColor(context, isDestructive)).withLightness(.75).withSaturation(.5).toColor();
     else
@@ -74,7 +74,7 @@ Color _darkTrackColor(BuildContext context, Set<MaterialState> states, bool isDe
     return Colors.transparent;
 }
 
-Color _trackOutlineColor(BuildContext context, Set<MaterialState> states, bool isDestructive, bool isEnabled) {
+Color _trackOutlineColor(BuildContext context, Set<WidgetState> states, bool isDestructive, bool isEnabled) {
   if (Theme.of(context).brightness == Brightness.light) {
     return _lightTrackOutlineColor(context, states, isDestructive, isEnabled);
   } else {
@@ -82,16 +82,16 @@ Color _trackOutlineColor(BuildContext context, Set<MaterialState> states, bool i
   }
 }
 
-Color _lightTrackOutlineColor(BuildContext context, Set<MaterialState> states, bool isDestructive, bool isEnabled) {
-  if (states.contains(MaterialState.selected)) return Colors.transparent;
+Color _lightTrackOutlineColor(BuildContext context, Set<WidgetState> states, bool isDestructive, bool isEnabled) {
+  if (states.contains(WidgetState.selected)) return Colors.transparent;
   if (isEnabled)
     return _lightThumbColor(context, states, isDestructive, isEnabled);
   else
     return _lightThumbColor(context, states, isDestructive, isEnabled).withOpacity(.25);
 }
 
-Color _darkTrackOutlineColor(BuildContext context, Set<MaterialState> states, bool isDestructive, bool isEnabled) {
-  if (states.contains(MaterialState.selected)) return Colors.transparent;
+Color _darkTrackOutlineColor(BuildContext context, Set<WidgetState> states, bool isDestructive, bool isEnabled) {
+  if (states.contains(WidgetState.selected)) return Colors.transparent;
   if (isEnabled)
     return _darkThumbColor(context, states, isDestructive, isEnabled);
   else
@@ -148,16 +148,16 @@ class AdaptiveSwitch extends StatelessWidget {
   Widget build(BuildContext context) {
     return switch (designPlatform) {
       CitecPlatform.material => Switch(
-          thumbColor: MaterialStateProperty.resolveWith((states) => _thumbColor(context, states, isDestructive, _enabled)),
-          trackColor: MaterialStateProperty.resolveWith((states) => _trackColor(context, states, isDestructive, _enabled)),
-          trackOutlineColor: MaterialStateProperty.resolveWith((states) => _trackOutlineColor(context, states, isDestructive, _enabled)),
+          thumbColor: WidgetStateProperty.resolveWith((states) => _thumbColor(context, states, isDestructive, _enabled)),
+          trackColor: WidgetStateProperty.resolveWith((states) => _trackColor(context, states, isDestructive, _enabled)),
+          trackOutlineColor: WidgetStateProperty.resolveWith((states) => _trackOutlineColor(context, states, isDestructive, _enabled)),
           value: value,
           onChanged: _enabled ? (bool newValue) => onTapHaptic(onChanged, newValue) : null,
         ),
       CitecPlatform.ios => Switch.adaptive(
-          thumbColor: MaterialStateProperty.resolveWith((states) => Colors.white),
-          trackColor: MaterialStateProperty.resolveWith((states) {
-            if (states.contains(MaterialState.selected)) return _primaryColor(context, isDestructive);
+          thumbColor: WidgetStateProperty.resolveWith((states) => Colors.white),
+          trackColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.selected)) return _primaryColor(context, isDestructive);
             return _inactiveTrackColor(context);
           }),
           value: value,

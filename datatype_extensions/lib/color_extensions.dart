@@ -14,6 +14,17 @@ extension ColorExtension on Color {
     final hsl = HSLColor.fromColor(this);
     return hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0)).toColor();
   }
+
+  Color operator +(Color other) => Color.alphaBlend(this, other);
+}
+
+extension NullableColorExtension on Color? {
+  Color operator +(Color? other) {
+    if (this == null && other == null) return Colors.transparent;
+    if (this == null) return other!;
+    if (other == null) return this!;
+    return Color.alphaBlend(this!, other);
+  }
 }
 
 @immutable

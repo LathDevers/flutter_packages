@@ -1,4 +1,4 @@
-import 'package:analyzer/error/error.dart';
+import 'package:analyzer/error/error.dart' show AnalysisError;
 import 'package:analyzer/error/listener.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
@@ -23,8 +23,7 @@ class UseAdaptiveNavigator extends DartLintRule {
   ) {
     context.registry.addSimpleIdentifier((node) {
       if (!_wrongTypes.contains(node.toString())) return;
-      print(node.inConstantContext);
-      reporter.reportErrorForNode(code, node);
+      reporter.atNode(node, code);
     });
   }
 

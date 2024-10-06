@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:platform_adaptivity/adaptive_icons.dart';
 import 'package:platform_adaptivity/adaptive_widgets.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +41,22 @@ class AdaptivePullDownButtonState extends State<AdaptivePullDownButton> {
   Future<void> Function() _showMenu = Future.value;
 
   Future<void> showCupertinoMenu() => _showMenu();
+
+  bool _isHovered = false;
+
+  void _handleMouseEnter(PointerEnterEvent event) {
+    if (!_isHovered)
+      setState(() {
+        _isHovered = true;
+      });
+  }
+
+  void _handleMouseExit(PointerExitEvent event) {
+    if (_isHovered)
+      setState(() {
+        _isHovered = false;
+      });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,17 +110,27 @@ class AdaptivePullDownButtonState extends State<AdaptivePullDownButton> {
           },
           buttonBuilder: (context, showMenu) {
             _showMenu = showMenu;
-            return GestureDetector(
-              onTap: () {
-                widget.onOpen?.call();
-                showMenu();
-              },
-              child: Padding(
-                padding: widget.padding,
-                child: Icon(
-                  AdaptiveIcons.menu_rounded,
-                  color: widget.iconColor ?? Theme.of(context).colorScheme.primary,
-                  size: 24,
+            return MouseRegion(
+              onEnter: _handleMouseEnter,
+              onExit: _handleMouseExit,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: _isHovered ? CupertinoColors.secondarySystemFill.resolveFrom(context) : null,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: GestureDetector(
+                  onTap: () {
+                    widget.onOpen?.call();
+                    showMenu();
+                  },
+                  child: Padding(
+                    padding: widget.padding,
+                    child: Icon(
+                      AdaptiveIcons.menu_rounded,
+                      color: widget.iconColor ?? Theme.of(context).colorScheme.primary,
+                      size: 24,
+                    ),
+                  ),
                 ),
               ),
             );

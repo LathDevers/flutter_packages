@@ -189,7 +189,7 @@ class AdaptiveSlider extends StatelessWidget {
   ///
   /// If null, [SliderThemeData.inactiveTrackColor] of the ambient [SliderTheme]
   /// is used. If that is null and [ThemeData.useMaterial3] is true,
-  /// [ColorScheme.surfaceVariant] will be used, otherwise [ColorScheme.primary]
+  /// [ColorScheme.surfaceContainerHighest] will be used, otherwise [ColorScheme.primary]
   /// with an opacity of 0.24 will be used.
   ///
   /// Using a [SliderTheme] gives much more fine-grained control over the

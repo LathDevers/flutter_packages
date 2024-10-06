@@ -124,7 +124,7 @@ class _Material3IndeterminateLinearProgressIndicator extends ProgressIndicator {
   ///
   /// If [backgroundColor] is null then the
   /// ambient [ProgressIndicatorThemeData.linearTrackColor] will be used.
-  /// If that is null, then the ambient theme's [ColorScheme.background]
+  /// If that is null, then the ambient theme's [ColorScheme.surface]
   /// will be used to draw the track.
   @override
   Color? get backgroundColor => super.backgroundColor;
@@ -169,7 +169,7 @@ class _Material3IndeterminateLinearProgressIndicatorState extends State<_Materia
 
   Widget _buildIndicator(BuildContext context, double animationValue, TextDirection textDirection) {
     final ProgressIndicatorThemeData indicatorTheme = ProgressIndicatorTheme.of(context);
-    final Color trackColor = widget.backgroundColor ?? indicatorTheme.linearTrackColor ?? Theme.of(context).colorScheme.surfaceVariant;
+    final Color trackColor = widget.backgroundColor ?? indicatorTheme.linearTrackColor ?? Theme.of(context).colorScheme.surfaceContainerHighest;
     final double minHeight = widget.height;
 
     return Padding(

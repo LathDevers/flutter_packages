@@ -1,4 +1,4 @@
-import 'package:analyzer/error/error.dart';
+import 'package:analyzer/error/error.dart' show AnalysisError;
 import 'package:analyzer/error/listener.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
@@ -22,7 +22,7 @@ class UseAdaptiveDialog extends DartLintRule {
     context.registry.addExpression((node) {
       final element = node.staticType;
       if (element == null || !_wrongNames.contains(node.toString())) return;
-      reporter.reportErrorForNode(code, node);
+      reporter.atNode(node, code);
     });
   }
 

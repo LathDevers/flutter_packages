@@ -20,7 +20,7 @@ class UseAdaptiveTabScaffold extends DartLintRule {
     context.registry.addInstanceCreationExpression((node) {
       final element = node.staticType;
       if (element == null || !_wrongNames.contains(element.toString().split('<').first)) return;
-      reporter.reportErrorForNode(code, node.constructorName);
+      reporter.atNode(node.constructorName, code);
     });
   }
 }

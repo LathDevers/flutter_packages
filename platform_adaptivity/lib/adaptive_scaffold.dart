@@ -335,14 +335,14 @@ class BiCupertinoScaffold extends StatelessWidget {
     String? edited = (previousPageTitle == null && automaticallyImplyLeading) ? PackageLocalizations(locale).back : previousPageTitle;
     if (edited != null && edited.length > 12) edited = '${edited.substring(0, 9)}...';
     return Material(
-      color: backgroundColor ?? Theme.of(context).colorScheme.background,
+      color: backgroundColor ?? Theme.of(context).colorScheme.surface,
       child: NestedScrollView(
         controller: controller,
         headerSliverBuilder: (titleWidget != null || title != null || appBarActions.isNotEmpty || leading != null)
             ? (context, _) => [
                   CupertinoSliverNavigationBar(
                     stretch: true,
-                    backgroundColor: backgroundColor ?? Theme.of(context).colorScheme.background,
+                    backgroundColor: backgroundColor ?? Theme.of(context).colorScheme.surface,
                     largeTitle: titleWidget ??
                         Text(
                           title ?? '',
@@ -366,7 +366,7 @@ class BiCupertinoScaffold extends StatelessWidget {
                   const SliverToBoxAdapter(),
                 ],
         body: _wrapWithFooter(
-          backgroundColor: backgroundColor ?? Theme.of(context).colorScheme.background,
+          backgroundColor: backgroundColor ?? Theme.of(context).colorScheme.surface,
           child: CustomScrollView(
             semanticChildCount: _isSingle ? 1 : children.length,
             slivers: <Widget>[

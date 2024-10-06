@@ -65,7 +65,7 @@ class SearchingDocAnimatedWidget extends StatelessWidget {
             ),
           ),
           child: ColoredBox(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.surface,
             child: Padding(
               padding: EdgeInsets.only(right: offset - _diff / 2, bottom: offset - _diff / 2),
               child: Icon(

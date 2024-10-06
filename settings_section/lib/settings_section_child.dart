@@ -292,7 +292,7 @@ class SettingsListTile extends StatelessWidget implements SettingsSectionChild {
         activeColor: _primaryColor(context),
         inactiveColor: _primaryColor(context),
         deactivatedColor: Theme.of(context).disabledColor,
-        tickColor: Colors.white,
+        tickColor: Theme.of(context).scaffoldBackgroundColor,
         splashRadius: 16,
       );
     if (trailingIcon == null) return null;
@@ -433,7 +433,7 @@ class SettingsListTileDropDown<T> extends StatelessWidget implements SettingsSec
             children: [
               Text(toText?.call(value) ?? value.toString()),
               const SizedBox(width: 8),
-              elements[value]!.icon!,
+              elements[value]!.icon,
             ],
           );
         return Text(toText?.call(value) ?? value.toString());
