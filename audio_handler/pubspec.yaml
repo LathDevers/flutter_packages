@@ -8,12 +8,12 @@ dependencies:
   audio_session: ^0.1.18
   datatype_extensions:
     git:
-      url: git@gitlab.ub.uni-bielefeld.de:bi-vital/flutter_packages.git
+      url: git@github.com:LathDevers/flutter_packages.git
       path: datatype_extensions
   ffmpeg_kit_flutter: ^6.0.3
   file_manager:
     git:
-      url: git@gitlab.ub.uni-bielefeld.de:bi-vital/flutter_packages.git
+      url: git@github.com:LathDevers/flutter_packages.git
       path: file_manager
   file_picker: ^8.0.6
   flutter:
@@ -26,7 +26,7 @@ dependencies:
   path_provider: ^2.1.2
   platform_adaptivity:
     git:
-      url: git@gitlab.ub.uni-bielefeld.de:bi-vital/flutter_packages.git
+      url: git@github.com:LathDevers/flutter_packages.git
       path: platform_adaptivity
   shared_preferences: ^2.2.2
 
@@ -35,7 +35,7 @@ dev_dependencies:
   flutter_lints: ^4.0.0
   linter_rules:
     git:
-      url: git@gitlab.ub.uni-bielefeld.de:bi-vital/flutter_packages.git
+      url: git@github.com:LathDevers/flutter_packages.git
       path: linter_rules
 
 flutter:

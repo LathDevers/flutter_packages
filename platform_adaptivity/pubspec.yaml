@@ -7,7 +7,7 @@ environment:
 dependencies:
   datatype_extensions:
     git:
-      url: git@gitlab.ub.uni-bielefeld.de:bi-vital/flutter_packages.git
+      url: git@github.com:LathDevers/flutter_packages.git
       path: datatype_extensions
   dropdown_button2: ^2.3.9
   fluent_ui: ^4.8.6
@@ -31,5 +31,5 @@ dev_dependencies:
   flutter_lints: ^4.0.0
   linter_rules:
     git:
-      url: git@gitlab.ub.uni-bielefeld.de:bi-vital/flutter_packages.git
+      url: git@github.com:LathDevers/flutter_packages.git
       path: linter_rules
