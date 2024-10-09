@@ -381,7 +381,7 @@ class CupertinoNavigationBarWithImage extends StatefulWidget implements Obstruct
   ///
   /// When [transitionBetweenRoutes] is true, this navigation bar will transition
   /// on top of the routes instead of inside it if the route being transitioned
-  /// to also has a [CupertinoNavigationBar] or a [CupertinoSliverNavigationBar]
+  /// to also has a [CupertinoNavigationBarWithImage] or a [CupertinoSliverNavigationBarWithImage]
   /// with [transitionBetweenRoutes] set to true.
   ///
   /// This transition will also occur on edge back swipe gestures like on iOS
@@ -398,8 +398,8 @@ class CupertinoNavigationBarWithImage extends StatefulWidget implements Obstruct
   /// {@template flutter.cupertino.CupertinoNavigationBar.heroTag}
   /// Tag for the navigation bar's Hero widget if [transitionBetweenRoutes] is true.
   ///
-  /// Defaults to a common tag between all [CupertinoNavigationBar] and
-  /// [CupertinoSliverNavigationBar] instances of the same [Navigator]. With the
+  /// Defaults to a common tag between all [CupertinoNavigationBarWithImage] and
+  /// [CupertinoSliverNavigationBarWithImage] instances of the same [Navigator]. With the
   /// default tag, all navigation bars of the same navigator can transition
   /// between each other as long as there's only one navigation bar per route.
   ///
@@ -504,7 +504,7 @@ class _CupertinoNavigationBarWithImageState extends State<CupertinoNavigationBar
 
 /// An iOS-styled navigation bar with iOS-11-style large titles using slivers.
 ///
-/// The [CupertinoSliverNavigationBar] must be placed in a sliver group such
+/// The [CupertinoSliverNavigationBarWithImage] must be placed in a sliver group such
 /// as the [CustomScrollView].
 ///
 /// This navigation bar consists of two sections, a pinned static section on top
@@ -520,7 +520,7 @@ class _CupertinoNavigationBarWithImageState extends State<CupertinoNavigationBar
 /// For advanced uses, an optional [middle] widget can be supplied to show a
 /// different widget in the middle of the navigation bar when the sliver is collapsed.
 ///
-/// Like [CupertinoNavigationBar], it also supports a [leading] and [trailing]
+/// Like [CupertinoNavigationBarWithImage], it also supports a [leading] and [trailing]
 /// widget on the static section on top that remains while scrolling.
 ///
 /// The [leading] widget will automatically be a back chevron icon button (or a
@@ -533,20 +533,20 @@ class _CupertinoNavigationBarWithImageState extends State<CupertinoNavigationBar
 ///
 /// When [transitionBetweenRoutes] is true, this navigation bar will transition
 /// on top of the routes instead of inside them if the route being transitioned
-/// to also has a [CupertinoNavigationBar] or a [CupertinoSliverNavigationBar]
+/// to also has a [CupertinoNavigationBarWithImage] or a [CupertinoSliverNavigationBarWithImage]
 /// with [transitionBetweenRoutes] set to true. If [transitionBetweenRoutes] is
 /// true, none of the [Widget] parameters can contain any [GlobalKey]s in their
 /// subtrees since those widgets will exist in multiple places in the tree
 /// simultaneously.
 ///
-/// By default, only one [CupertinoNavigationBar] or [CupertinoSliverNavigationBar]
+/// By default, only one [CupertinoNavigationBarWithImage] or [CupertinoSliverNavigationBarWithImage]
 /// should be present in each [PageRoute] to support the default transitions.
 /// Use [transitionBetweenRoutes] or [heroTag] to customize the transition
 /// behavior for multiple navigation bars per route.
 ///
-/// [CupertinoSliverNavigationBar] by default disables text scaling to match the
+/// [CupertinoSliverNavigationBarWithImage] by default disables text scaling to match the
 /// native iOS behavior. To override this behavior, wrap each of the
-/// [CupertinoSliverNavigationBar]'s components inside a [MediaQuery] with the
+/// [CupertinoSliverNavigationBarWithImage]'s components inside a [MediaQuery] with the
 /// desired [TextScaler].
 ///
 /// The [stretch] parameter determines whether the nav bar should stretch to
@@ -555,7 +555,7 @@ class _CupertinoNavigationBarWithImageState extends State<CupertinoNavigationBar
 /// [stretch] value is `true`. Defaults to `false`.
 ///
 /// {@tool dartpad}
-/// This example shows [CupertinoSliverNavigationBar] in action inside a [CustomScrollView].
+/// This example shows [CupertinoSliverNavigationBarWithImage] in action inside a [CustomScrollView].
 ///
 /// ** See code in examples/api/lib/cupertino/nav_bar/cupertino_sliver_nav_bar.0.dart **
 /// {@end-tool}
@@ -756,21 +756,6 @@ class _CupertinoSliverNavigationBarWithImageState extends State<CupertinoSliverN
   }
 }
 
-class UserLeading {
-  const UserLeading({this.icon, this.text, this.onPressed, this.color1, this.color2});
-
-  /// The icon to display before the [text].
-  ///
-  /// By default this is an [CupertinoIcons.back].
-  final IconData? icon;
-
-  /// The text to display after the [icon], if [icon] is provided.
-  final String? text;
-  final void Function()? onPressed;
-  final Color? color1;
-  final Color? color2;
-}
-
 class _LargeTitleNavigationBarSliverDelegate extends SliverPersistentHeaderDelegate with DiagnosticableTreeMixin {
   _LargeTitleNavigationBarSliverDelegate({
     required this.keys,
@@ -855,11 +840,9 @@ class _LargeTitleNavigationBarSliverDelegate extends SliverPersistentHeaderDeleg
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      stops: const [0, .5, .8, 1],
+                      stops: const [0, 1],
                       colors: <Color>[
-                        const Color(0xB3000000),
-                        const Color(0x4D000000),
-                        backgroundColor.withOpacity(.8),
+                        backgroundColor.withOpacity(0),
                         backgroundColor,
                       ],
                       tileMode: TileMode.clamp,
