@@ -17,7 +17,7 @@ class AdaptiveListTile extends StatelessWidget {
   const AdaptiveListTile({
     super.key,
     this.leading,
-    this.leadingSize,
+    this.leadingSize = _kLeadingSize,
     required this.title,
     this.subtitle,
     this.additionalInfo,
@@ -53,6 +53,7 @@ class AdaptiveListTile extends StatelessWidget {
   const AdaptiveListTile.image({
     super.key,
     this.leadingImage,
+    this.leadingSize = _kLeadingImageSize,
     required this.title,
     this.subtitle,
     this.additionalInfo,
@@ -65,8 +66,7 @@ class AdaptiveListTile extends StatelessWidget {
     this.splashColor,
   })  : leading = null,
         leadingIcon = null,
-        leadingAvatar = null,
-        leadingSize = null;
+        leadingAvatar = null;
 
   const AdaptiveListTile.avatar({
     super.key,
@@ -203,8 +203,8 @@ class AdaptiveListTile extends StatelessWidget {
 
   double get _leadingSize {
     if (leadingSize != null) return leadingSize!;
+    if (leadingImage != null) return leadingSize ?? _kLeadingImageSize;
     if (leadingIcon != null) return leadingIcon!.size ?? _kLeadingSize;
-    if (leadingImage != null) return _kLeadingImageSize;
     if (leadingAvatar != null) return leadingAvatar!.radius != null ? leadingAvatar!.radius! * 2 : _kLeadingSize;
     return _kLeadingSize;
   }
@@ -219,8 +219,8 @@ class AdaptiveListTile extends StatelessWidget {
           aspectRatio: 1,
           child: Image.memory(
             leadingImage!,
-            width: _kLeadingImageSize,
-            height: _kLeadingImageSize,
+            width: leadingSize ?? _kLeadingImageSize,
+            height: leadingSize ?? _kLeadingImageSize,
             fit: BoxFit.cover,
           ),
         ),
