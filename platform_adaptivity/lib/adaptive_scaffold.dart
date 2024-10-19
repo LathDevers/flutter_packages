@@ -10,6 +10,8 @@ class AdaptiveScaffold extends StatelessWidget {
   const AdaptiveScaffold.single({
     super.key,
     this.title,
+    this.titleStyle,
+    this.avatar,
     this.leading,
     this.appBarActions = const <Widget>[],
     this.automaticallyImplyLeading = true,
@@ -32,6 +34,8 @@ class AdaptiveScaffold extends StatelessWidget {
   const AdaptiveScaffold.multiple({
     super.key,
     this.title,
+    this.titleStyle,
+    this.avatar,
     this.leading,
     this.appBarActions = const <Widget>[],
     this.automaticallyImplyLeading = true,
@@ -52,6 +56,8 @@ class AdaptiveScaffold extends StatelessWidget {
   final String? previousPageTitle;
   final Widget? leading;
   final String? title;
+  final TextStyle? titleStyle;
+  final ({ImageProvider image, VoidCallback? onPressed})? avatar;
   final List<Widget> appBarActions;
   final bool automaticallyImplyLeading;
   final bool wrapWithCenter;
@@ -77,6 +83,7 @@ class AdaptiveScaffold extends StatelessWidget {
           return MaterialScaffold.single(
             key: key,
             title: title,
+            titleStyle: titleStyle,
             leading: leading,
             appBarActions: appBarActions,
             automaticallyImplyLeading: automaticallyImplyLeading,
@@ -91,6 +98,7 @@ class AdaptiveScaffold extends StatelessWidget {
           return MaterialScaffold.multiple(
             key: key,
             title: title,
+            titleStyle: titleStyle,
             leading: leading,
             appBarActions: appBarActions,
             automaticallyImplyLeading: automaticallyImplyLeading,
@@ -105,6 +113,8 @@ class AdaptiveScaffold extends StatelessWidget {
           return BiCupertinoScaffold.single(
             key: key,
             title: title,
+            titleStyle: titleStyle,
+            avatar: avatar,
             leading: leading,
             appBarActions: appBarActions,
             automaticallyImplyLeading: automaticallyImplyLeading,
@@ -122,6 +132,8 @@ class AdaptiveScaffold extends StatelessWidget {
           return BiCupertinoScaffold.multiple(
             key: key,
             title: title,
+            titleStyle: titleStyle,
+            avatar: avatar,
             leading: leading,
             appBarActions: appBarActions,
             automaticallyImplyLeading: automaticallyImplyLeading,
@@ -146,6 +158,7 @@ class MaterialScaffold extends StatelessWidget {
   const MaterialScaffold.single({
     super.key,
     this.title,
+    this.titleStyle,
     this.leading,
     this.appBarActions = const <Widget>[],
     this.automaticallyImplyLeading = true,
@@ -161,6 +174,7 @@ class MaterialScaffold extends StatelessWidget {
   const MaterialScaffold.multiple({
     super.key,
     this.title,
+    this.titleStyle,
     this.leading,
     this.appBarActions = const <Widget>[],
     this.automaticallyImplyLeading = true,
@@ -175,6 +189,7 @@ class MaterialScaffold extends StatelessWidget {
 
   final Widget? leading;
   final String? title;
+  final TextStyle? titleStyle;
   final List<Widget> appBarActions;
   final bool automaticallyImplyLeading;
   final bool wrapWithCenter;
@@ -197,7 +212,7 @@ class MaterialScaffold extends StatelessWidget {
               title: titleWidget ??
                   Text(
                     title ?? '',
-                    style: TextStyle(color: Theme.of(context).primaryColor),
+                    style: titleStyle ?? TextStyle(color: Theme.of(context).primaryColor),
                   ),
               actions: appBarActions,
               automaticallyImplyLeading: automaticallyImplyLeading,
@@ -278,6 +293,8 @@ class BiCupertinoScaffold extends StatelessWidget {
   const BiCupertinoScaffold.single({
     super.key,
     this.title,
+    this.titleStyle,
+    this.avatar,
     this.leading,
     this.appBarActions = const <Widget>[],
     this.automaticallyImplyLeading = true,
@@ -296,6 +313,8 @@ class BiCupertinoScaffold extends StatelessWidget {
   const BiCupertinoScaffold.multiple({
     super.key,
     this.title,
+    this.titleStyle,
+    this.avatar,
     this.leading,
     this.appBarActions = const <Widget>[],
     this.automaticallyImplyLeading = true,
@@ -320,6 +339,8 @@ class BiCupertinoScaffold extends StatelessWidget {
 
   /// If [titleWidget] is not `null`, [title] is overridden.
   final Widget? titleWidget;
+  final TextStyle? titleStyle;
+  final ({ImageProvider image, VoidCallback? onPressed})? avatar;
   final bool _isSingle;
   final Widget child;
   final List<Widget> children;
@@ -341,14 +362,36 @@ class BiCupertinoScaffold extends StatelessWidget {
         headerSliverBuilder: (titleWidget != null || title != null || appBarActions.isNotEmpty || leading != null)
             ? (context, _) => [
                   CupertinoSliverNavigationBar(
+                    alwaysShowMiddle: false,
                     brightness: Theme.of(context).brightness,
                     stretch: true,
                     backgroundColor: backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
-                    largeTitle: titleWidget ??
-                        Text(
-                          title ?? '',
-                          style: TextStyle(color: Theme.of(context).primaryColor),
-                        ),
+                    largeTitle: avatar == null
+                        ? titleWidget ??
+                            Text(
+                              title ?? '',
+                              style: titleStyle ?? TextStyle(color: Theme.of(context).primaryColor),
+                            )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              titleWidget ??
+                                  Text(
+                                    title ?? '',
+                                    style: titleStyle ?? TextStyle(color: Theme.of(context).primaryColor),
+                                  ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 16),
+                                child: InkWell(
+                                  onTap: avatar!.onPressed,
+                                  child: CircleAvatar(
+                                    foregroundImage: avatar!.image,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                     leading: leading,
                     previousPageTitle: edited,
                     trailing: appBarActions.isNotEmpty
