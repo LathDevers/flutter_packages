@@ -631,17 +631,17 @@ abstract final class AdaptiveIcons {
         _ => throw UnimplementedError(),
       };
 
-  /// <i class="material-icons-outlined md-36">summarize</i> &#x2014; material icon named "summarize" (outlined). <br> <i class='cupertino-icons md-36'>doc_text</i> &#x2014; Cupertino icon named "doc_text".
+  /// <i class="material-icons-outlined md-36">description</i> &#x2014; material icon named "summarize" (outlined). <br> <i class='cupertino-icons md-36'>doc_text</i> &#x2014; Cupertino icon named "doc_text".
   static IconData get doc_log => switch (designPlatform) {
-        CitecPlatform.material => Icons.summarize_outlined,
+        CitecPlatform.material => Icons.description_outlined,
         CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.doc_text,
         CitecPlatform.fluent => FluentIcons.document_bullet_list_16_regular,
         _ => throw UnimplementedError(),
       };
 
-  /// <i class="material-icons-round md-36">summarize</i> &#x2014; material icon named "summarize" (round). <br> <i class='cupertino-icons md-36'>doc_text_fill</i> &#x2014; Cupertino icon named "doc_text_fill".
+  /// <i class="material-icons md-36">description</i> &#x2014; material icon named "description" (round). <br> <i class='cupertino-icons md-36'>doc_text_fill</i> &#x2014; Cupertino icon named "doc_text_fill".
   static IconData get doc_log_fill => switch (designPlatform) {
-        CitecPlatform.material => Icons.summarize_rounded,
+        CitecPlatform.material => Icons.description_rounded,
         CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.doc_text_fill,
         CitecPlatform.fluent => FluentIcons.document_bullet_list_16_filled,
         _ => throw UnimplementedError(),
@@ -668,6 +668,118 @@ abstract final class AdaptiveIcons {
         CitecPlatform.material => CupertinoIcons.gamecontroller_fill,
         CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.gamecontroller_fill,
         CitecPlatform.fluent => FluentIcons.xbox_controller_16_filled,
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons-outlined md-36">book</i> &#x2014; material icon named "book" (outlined). <br> <i class='cupertino-icons md-36'>book</i> &#x2014; Cupertino icon for a book silhouette spread open. This icon is not filled in.
+  static IconData get book => switch (designPlatform) {
+        CitecPlatform.material => Icons.book_outlined,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.book,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons md-36">book</i> &#x2014; material icon named "book". <br> <i class='cupertino-icons md-36'>book_fill</i> &#x2014; Cupertino icon for a book silhouette spread open.
+  static IconData get book_fill => switch (designPlatform) {
+        CitecPlatform.material => Icons.book_rounded,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.book_fill,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons md-36">volume_mute</i> &#x2014; material icon named "volume mute". <br> <i class='cupertino-icons md-36'>volume_mute</i> &#x2014; Cupertino icon for a speaker with no sound waves coming out of it.
+  static IconData get volume_mute => switch (designPlatform) {
+        CitecPlatform.material => Icons.volume_mute,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.volume_mute,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons md-36">volume_up</i> &#x2014; material icon named "volume up". <br> <i class='cupertino-icons md-36'>volume_up</i> &#x2014; Cupertino icon for a speaker with sound waves coming out of it.
+  static IconData get volume_up => switch (designPlatform) {
+        CitecPlatform.material => Icons.volume_up,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.volume_up,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons-round md-36">text_format</i> &#x2014; material icon named "text format" (round). <br> <i class='cupertino-icons md-36'>textformat_alt</i> &#x2014; Cupertino icon named "textformat_alt".
+  static IconData get text_format => switch (designPlatform) {
+        CitecPlatform.material => Icons.text_format_rounded,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.textformat_alt,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons-round md-36">skip_previous</i> &#x2014; material icon named "skip previous" (round). <br> <i class='cupertino-icons md-36'>gobackward</i> &#x2014; Cupertino icon named "gobackward".
+  static IconData get wind_back => switch (designPlatform) {
+        CitecPlatform.material => Icons.skip_previous_rounded,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.gobackward,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons-round md-36">skip_next</i> &#x2014; material icon named "skip next" (round). <br> <i class='cupertino-icons md-36'>goforward</i> &#x2014; Cupertino icon named "goforward".
+  static IconData get wind_forward => switch (designPlatform) {
+        CitecPlatform.material => Icons.skip_next_rounded,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.goforward,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons-round md-36">language</i> &#x2014; material icon named "language" (round). <br> <i class='cupertino-icons md-36'>globe</i> &#x2014; Cupertino icon for a globe. This icon is not filled in.
+  static IconData get language => switch (designPlatform) {
+        CitecPlatform.material => Icons.language_rounded,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.globe,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons md-36">bookmark</i> &#x2014; material icon named "bookmark". <br> <i class='cupertino-icons md-36'>bookmark</i> &#x2014; Cupertino icon for a bookmark. This icon is not filled in.
+  static IconData get bookmark_fill => switch (designPlatform) {
+        CitecPlatform.material => Icons.bookmark,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.bookmark_fill,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons md-36">nightlight_round</i> &#x2014; material icon named "nightlight round". <br> <i class='cupertino-icons md-36'>moon_zzz_fill</i> &#x2014; Cupertino icon named "moon_zzz_fill".
+  static IconData get moon_zzz_fill => switch (designPlatform) {
+        CitecPlatform.material => Icons.nightlight_round,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.moon_zzz_fill,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons-round md-36">music_note</i> &#x2014; material icon named "music note" (round). <br> <i class='cupertino-icons md-36'>music_note</i> &#x2014; Cupertino icon for a single music note. This icon is not filled in.
+  static IconData get music_note => switch (designPlatform) {
+        CitecPlatform.material => Icons.music_note_rounded,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.music_note,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons-round md-36">music_note</i> &#x2014; material icon named "music note" (round). <br> <i class='cupertino-icons md-36'>music_note_2</i> &#x2014; Cupertino icon for a single music note.
+  static IconData get music_note_2 => switch (designPlatform) {
+        CitecPlatform.material => Icons.music_note_rounded,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.music_note_2,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons-outlined md-36">folder_zip</i> &#x2014; material icon named "folder zip" (outlined). <br> <i class='cupertino-icons md-36'>archivebox</i> &#x2014; Cupertino icon named "archivebox".
+  static IconData get folder_zip => switch (designPlatform) {
+        CitecPlatform.material => Icons.folder_zip_outlined,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.archivebox,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class='cupertino-icons md-36'>line_horizontal_3</i> &#x2014; Cupertino icon named "line_horizontal_3".
+  static IconData get line_horizontal_3 => switch (designPlatform) {
+        CitecPlatform.material => FontAwesomeIcons.bars,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.line_horizontal_3,
+        CitecPlatform.fluent => throw UnimplementedError(),
         _ => throw UnimplementedError(),
       };
 
@@ -975,6 +1087,14 @@ abstract final class AdaptiveIcons {
         _ => throw UnimplementedError(),
       };
 
+  /// <i class="material-icons-round md-36">list_alt</i> &#x2014; material icon named "list alt" (round).
+  static IconData get list_bullet_fill => switch (designPlatform) {
+        CitecPlatform.material => Icons.list_alt_rounded,
+        CitecPlatform.ios || CitecPlatform.macos => AppIcons.listbulletfill,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
   /// <i class="material-icons-round md-36">terminal</i> &#x2014; material icon named "terminal" (round).<br> <i class='cupertino-icons md-36'>list_bullet_below_rectangle</i> &#x2014; Cupertino icon named "list_bullet_below_rectangle".
   static IconData get terminal => switch (designPlatform) {
         CitecPlatform.material => Icons.terminal_rounded,
@@ -1195,6 +1315,174 @@ abstract final class AdaptiveIcons {
   static IconData get tragedy => switch (designPlatform) {
         CitecPlatform.material => AppIcons.tragedy,
         CitecPlatform.ios || CitecPlatform.macos => AppIcons.tragedy,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons-round md-36">skip_next</i> &#x2014; material icon named "skip next" (round). <br> <i class='cupertino-icons md-36'>forward_fill</i> &#x2014; Cupertino icon named "forward_fill".
+  static IconData get next => switch (designPlatform) {
+        CitecPlatform.material => Icons.skip_next_rounded,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.forward_fill,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class='cupertino-icons md-36'>arrow_clockwise</i> &#x2014; Cupertino icon named "arrow_clockwise".
+  static IconData get arrow_clockwise => switch (designPlatform) {
+        CitecPlatform.material => FontAwesomeIcons.arrowRotateRight,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.arrow_clockwise,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class='cupertino-icons md-36'>arrow_counterclockwise</i> &#x2014; Cupertino icon named "arrow_counterclockwise".
+  static IconData get arrow_counterclockwise => switch (designPlatform) {
+        CitecPlatform.material => FontAwesomeIcons.arrowRotateLeft,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.arrow_counterclockwise,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class='cupertino-icons md-36'>gobackward</i> &#x2014; Cupertino icon named "gobackward".
+  static IconData get gobackward => switch (designPlatform) {
+        CitecPlatform.material => FontAwesomeIcons.arrowRotateLeft,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.gobackward,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons-round md-36">replay_5</i> &#x2014; material icon named "replay 5" (round).
+  static IconData get gobackward_5 => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.replay5material,
+        CitecPlatform.ios || CitecPlatform.macos => AppIcons.gobackward5,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons-round md-36">replay_10</i> &#x2014; material icon named "replay 10" (round). <br> <i class='cupertino-icons md-36'>gobackward_10</i> &#x2014; Cupertino icon named "gobackward_10".
+  static IconData get gobackward_10 => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.replay10material,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.gobackward_10,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class='cupertino-icons md-36'>gobackward_15</i> &#x2014; Cupertino icon named "gobackward_15".
+  static IconData get gobackward_15 => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.replay15material,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.gobackward_15,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons-round md-36">replay_30</i> &#x2014; material icon named "replay 30" (round). <br> <i class='cupertino-icons md-36'>gobackward_30</i> &#x2014; Cupertino icon named "gobackward_30".
+  static IconData get gobackward_30 => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.replay30material,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.gobackward_30,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class='cupertino-icons md-36'>gobackward_45</i> &#x2014; Cupertino icon named "gobackward_45".
+  static IconData get gobackward_45 => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.replay45material,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.gobackward_45,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class='cupertino-icons md-36'>gobackward_60</i> &#x2014; Cupertino icon named "gobackward_60".
+  static IconData get gobackward_60 => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.replay60material,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.gobackward_60,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class='cupertino-icons md-36'>gobackward_75</i> &#x2014; Cupertino icon named "gobackward_75".
+  static IconData get gobackward_75 => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.replay75material,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.gobackward_75,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class='cupertino-icons md-36'>gobackward_90</i> &#x2014; Cupertino icon named "gobackward_90".
+  static IconData get gobackward_90 => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.replay90material,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.gobackward_90,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class='cupertino-icons md-36'>goforward</i> &#x2014; Cupertino icon named "goforward".
+  static IconData get goforward => switch (designPlatform) {
+        CitecPlatform.material => FontAwesomeIcons.arrowRotateRight,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.goforward,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons-round md-36">forward_5</i> &#x2014; material icon named "forward 5" (round). <br> <i class='cupertino-icons md-36'>goforward_5</i> &#x2014; Cupertino icon named "goforward_5".
+  static IconData get goforward_5 => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.forward5material,
+        CitecPlatform.ios || CitecPlatform.macos => AppIcons.goforward5,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons-round md-36">forward_10</i> &#x2014; material icon named "forward 10" (round). <br> <i class='cupertino-icons md-36'>goforward_10</i> &#x2014; Cupertino icon named "goforward_10".
+  static IconData get goforward_10 => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.forward10material,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.goforward_10,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class='cupertino-icons md-36'>goforward_15</i> &#x2014; Cupertino icon named "goforward_15".
+  static IconData get goforward_15 => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.forward15material,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.goforward_15,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons-round md-36">forward_30</i> &#x2014; material icon named "forward 30" (round). <br> <i class='cupertino-icons md-36'>goforward_30</i> &#x2014; Cupertino icon named "goforward_30".
+  static IconData get goforward_30 => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.forward30material,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.goforward_30,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class='cupertino-icons md-36'>goforward_45</i> &#x2014; Cupertino icon named "goforward_45".
+  static IconData get goforward_45 => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.forward45material,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.goforward_45,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class='cupertino-icons md-36'>goforward_60</i> &#x2014; Cupertino icon named "goforward_60".
+  static IconData get goforward_60 => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.forward60material,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.goforward_60,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class='cupertino-icons md-36'>goforward_75</i> &#x2014; Cupertino icon named "goforward_75".
+  static IconData get goforward_75 => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.forward75material,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.goforward_75,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class='cupertino-icons md-36'>goforward_90</i> &#x2014; Cupertino icon named "goforward_90".
+  static IconData get goforward_90 => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.forward90material,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.goforward_90,
         CitecPlatform.fluent => throw UnimplementedError(),
         _ => throw UnimplementedError(),
       };
