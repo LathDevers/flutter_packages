@@ -19,6 +19,7 @@ class AdaptivePullDownButton extends StatefulWidget {
     this.onOpen,
     required this.itemBuilder,
     this.padding = const EdgeInsets.all(8),
+    this.child,
     this.iconColor,
   });
 
@@ -26,6 +27,11 @@ class AdaptivePullDownButton extends StatefulWidget {
   final void Function()? onOpen;
   final List<AdaptivePullDownEntry> Function(BuildContext) itemBuilder;
   final EdgeInsetsGeometry padding;
+
+  /// If omitted, defaults to <br> <i class="material-icons-round md-36">menu</i> &#x2014; material icon named "menu" (round). <br> <i class='cupertino-icons md-36'>ellipsis_circle</i> &#x2014; Cupertino icon named "ellipsis_circle".
+  final Widget? child;
+
+  /// Used for <br> <i class="material-icons-round md-36">menu</i> &#x2014; or <i class='cupertino-icons md-36'>ellipsis_circle</i> &#x2014; <br> Only if [child] is omitted.
   final Color? iconColor;
 
   @override
@@ -76,10 +82,11 @@ class AdaptivePullDownButtonState extends State<AdaptivePullDownButton> {
           ),
           child: Padding(
             padding: widget.padding,
-            child: Icon(
-              AdaptiveIcons.menu_rounded,
-              color: widget.iconColor ?? Theme.of(context).primaryColor,
-            ),
+            child: widget.child ??
+                Icon(
+                  AdaptiveIcons.menu_rounded,
+                  color: widget.iconColor ?? Theme.of(context).primaryColor,
+                ),
           ),
         ),
       CitecPlatform.ios => PullDownButton(
@@ -125,11 +132,12 @@ class AdaptivePullDownButtonState extends State<AdaptivePullDownButton> {
                   },
                   child: Padding(
                     padding: widget.padding,
-                    child: Icon(
-                      AdaptiveIcons.menu_rounded,
-                      color: widget.iconColor ?? Theme.of(context).colorScheme.primary,
-                      size: 24,
-                    ),
+                    child: widget.child ??
+                        Icon(
+                          AdaptiveIcons.menu_rounded,
+                          color: widget.iconColor ?? Theme.of(context).colorScheme.primary,
+                          size: 24,
+                        ),
                   ),
                 ),
               ),
