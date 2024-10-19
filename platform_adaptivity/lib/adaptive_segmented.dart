@@ -21,7 +21,7 @@ Color getColorForSegmentedControl<T>(
 
 enum _SegmentedControlType { material, cupertino, adaptive }
 
-class AdaptiveSegmented<T> extends StatelessWidget {
+class AdaptiveSegmented<T extends Object> extends StatelessWidget {
   const AdaptiveSegmented({
     super.key,
     required this.segments,

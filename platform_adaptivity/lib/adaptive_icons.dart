@@ -519,11 +519,19 @@ abstract final class AdaptiveIcons {
         _ => throw UnimplementedError(),
       };
 
+  /// Binocular (not filled).
+  static IconData get binoculars => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.binocularsmaterial,
+        CitecPlatform.ios || CitecPlatform.macos => AppIcons.binocularscupertino,
+        CitecPlatform.fluent => AppIcons.binocularsmaterial,
+        _ => throw UnimplementedError(),
+      };
+
   /// Binocular (filled).
   static IconData get binoculars_fill => switch (designPlatform) {
-        CitecPlatform.material => AppIcons.binocularsfill,
-        CitecPlatform.ios || CitecPlatform.macos => AppIcons.binocularsfill,
-        CitecPlatform.fluent => AppIcons.binocularsfill,
+        CitecPlatform.material => AppIcons.binocularsfillmaterial,
+        CitecPlatform.ios || CitecPlatform.macos => AppIcons.binocularsfillcupertino,
+        CitecPlatform.fluent => AppIcons.binocularsfillmaterial,
         _ => throw UnimplementedError(),
       };
 
@@ -991,6 +999,14 @@ abstract final class AdaptiveIcons {
         _ => throw UnimplementedError(),
       };
 
+  /// <i class="material-icons md-36">auto_awesome</i> &#x2014; material icon named "auto awesome". <br> <i class='cupertino-icons md-36'>wand_stars</i> &#x2014; Cupertino icon named "wand_stars".
+  static IconData get magic => switch (designPlatform) {
+        CitecPlatform.material => Icons.auto_awesome,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.wand_stars,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
   /// <i class="material-icons-round md-36">filter_list</i> &#x2014; material icon named "filter list" (round). <br>  <i class='cupertino-icons md-36'>line_horizontal_3_decrease_circle</i> &#x2014; Cupertino icon named "line_horizontal_3_decrease_circle".
   static IconData get filter_on => switch (designPlatform) {
         CitecPlatform.material => Icons.filter_list_rounded,
@@ -1099,6 +1115,86 @@ abstract final class AdaptiveIcons {
   static IconData get tire => switch (designPlatform) {
         CitecPlatform.material => Icons.tire_repair_rounded,
         CitecPlatform.ios || CitecPlatform.macos => AppIcons.tire,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons-round md-36">child_care</i> &#x2014; material icon named "child care" (round).
+  static IconData get child_care_rounded => switch (designPlatform) {
+        CitecPlatform.material => Icons.child_care_rounded,
+        CitecPlatform.ios || CitecPlatform.macos => AppIcons.figure_2_and_child_holdinghands,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons md-36">rocket</i> &#x2014; material icon named "rocket". <br> <i class='cupertino-icons md-36'>&#xf903;</i> &#x2014; Cupertino icon named "rocket".
+  static IconData get rocket => switch (designPlatform) {
+        CitecPlatform.material => Icons.rocket,
+        CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.rocket,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons md-36">rocket</i> &#x2014; material icon named "rocket". <br> <i class='cupertino-icons md-36'>&#xf903;</i> &#x2014; Cupertino icon named "rocket".
+  static IconData get ghost => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.ghost,
+        CitecPlatform.ios || CitecPlatform.macos => AppIcons.ghost,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons md-36">rocket</i> &#x2014; material icon named "rocket". <br> <i class='cupertino-icons md-36'>&#xf903;</i> &#x2014; Cupertino icon named "rocket".
+  static IconData get atom => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.atom,
+        CitecPlatform.ios || CitecPlatform.macos => AppIcons.atom,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons md-36">rocket</i> &#x2014; material icon named "rocket". <br> <i class='cupertino-icons md-36'>&#xf903;</i> &#x2014; Cupertino icon named "rocket".
+  static IconData get feather => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.feather,
+        CitecPlatform.ios || CitecPlatform.macos => AppIcons.feather,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons md-36">rocket</i> &#x2014; material icon named "rocket". <br> <i class='cupertino-icons md-36'>&#xf903;</i> &#x2014; Cupertino icon named "rocket".
+  static IconData get pray => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.pray,
+        CitecPlatform.ios || CitecPlatform.macos => AppIcons.pray,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons md-36">rocket</i> &#x2014; material icon named "rocket". <br> <i class='cupertino-icons md-36'>&#xf903;</i> &#x2014; Cupertino icon named "rocket".
+  static IconData get racing => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.racing,
+        CitecPlatform.ios || CitecPlatform.macos => AppIcons.racing,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons md-36">rocket</i> &#x2014; material icon named "rocket". <br> <i class='cupertino-icons md-36'>&#xf903;</i> &#x2014; Cupertino icon named "rocket".
+  static IconData get arts => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.arts,
+        CitecPlatform.ios || CitecPlatform.macos => AppIcons.paintpalette,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons md-36">rocket</i> &#x2014; material icon named "rocket". <br> <i class='cupertino-icons md-36'>&#xf903;</i> &#x2014; Cupertino icon named "rocket".
+  static IconData get entertainment => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.entertainment,
+        CitecPlatform.ios || CitecPlatform.macos => AppIcons.entertainment,
+        CitecPlatform.fluent => throw UnimplementedError(),
+        _ => throw UnimplementedError(),
+      };
+
+  /// <i class="material-icons md-36">rocket</i> &#x2014; material icon named "rocket". <br> <i class='cupertino-icons md-36'>&#xf903;</i> &#x2014; Cupertino icon named "rocket".
+  static IconData get tragedy => switch (designPlatform) {
+        CitecPlatform.material => AppIcons.tragedy,
+        CitecPlatform.ios || CitecPlatform.macos => AppIcons.tragedy,
         CitecPlatform.fluent => throw UnimplementedError(),
         _ => throw UnimplementedError(),
       };

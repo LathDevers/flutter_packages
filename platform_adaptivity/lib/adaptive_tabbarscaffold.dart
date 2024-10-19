@@ -260,13 +260,13 @@ class _MaterialTabScaffoldState extends State<MaterialTabScaffold> {
                           widget.pages[index].appBar.backgroundImage!,
                           fit: BoxFit.cover,
                         ),
-                        userLeading: UserLeading(
+                        /*leading: UserLeading(
                           icon: widget.pages[index].appBar.leadingButton?.icon,
                           text: widget.pages[index].appBar.leadingButton?.text,
                           color1: widget.pages[index].appBar.leadingButton?.color1,
                           color2: widget.pages[index].appBar.leadingButton?.color2,
                           onPressed: () => widget.pages[index].appBar.leadingButton?.onPressed?.call(_changePage),
-                        ),
+                        ),*/ // TODO:
                         trailing: (widget.pages[index].appBar.actions.isNotEmpty)
                             ? Row(
                                 mainAxisSize: MainAxisSize.min,
@@ -650,13 +650,13 @@ class _MyCupertinoTabScaffoldState extends State<MyCupertinoTabScaffold> {
                               fit: BoxFit.cover,
                             )
                           : null,
-                      userLeading: UserLeading(
+                      /*leading: UserLeading(
                         icon: widget.pages[index].appBar.leadingButton?.icon,
                         text: widget.pages[index].appBar.leadingButton?.text,
                         color1: widget.pages[index].appBar.leadingButton?.color1,
                         color2: widget.pages[index].appBar.leadingButton?.color2,
                         onPressed: () => widget.pages[index].appBar.leadingButton?.onPressed?.call(_changePage),
-                      ),
+                      ),*/ // TODO:
                       trailing: (widget.pages[index].appBar.actions.isNotEmpty)
                           ? Row(
                               mainAxisSize: MainAxisSize.min,
