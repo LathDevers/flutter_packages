@@ -436,6 +436,7 @@ class _BiCupertinoScaffoldState extends State<BiCupertinoScaffold> {
   double previousScrollPosition = 0;
   //bool _isCollapsed = true;
   int prevScrollDirection = 0;
+  final ScrollController _backupController = ScrollController();
 
   bool handleControllerNotification(ScrollNotification scrollInfo) {
     if (scrollInfo.depth != 0) return false;
@@ -475,7 +476,7 @@ class _BiCupertinoScaffoldState extends State<BiCupertinoScaffold> {
     return Material(
       color: widget.backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
       child: _wrapWithFooter(
-        scrollController: widget.controller,
+        scrollController: widget.controller ?? _backupController,
         backgroundColor: widget.backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
         child: CupertinoPageScaffold(
           backgroundColor: widget.backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
@@ -483,7 +484,7 @@ class _BiCupertinoScaffoldState extends State<BiCupertinoScaffold> {
             onNotification: handleControllerNotification,
             child: CustomScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
-              controller: widget.controller,
+              controller: widget.controller ?? _backupController,
               //anchor: _isCollapsed ? 0.055 : 0,
               anchor: lerpDouble(0, 0.055, isVisibleSearchBar / 40) ?? 0,
               semanticChildCount: widget._isSingle ? 1 : widget.children.length,
@@ -592,7 +593,7 @@ class _BiCupertinoScaffoldState extends State<BiCupertinoScaffold> {
   Widget _wrapWithFooter({
     required Widget child,
     Color? backgroundColor,
-    ScrollController? scrollController,
+    required ScrollController scrollController,
   }) {
     if (widget.header == null && widget.footer == null) return child;
     if (widget.header == null) {
@@ -605,7 +606,7 @@ class _BiCupertinoScaffoldState extends State<BiCupertinoScaffold> {
             child,
             SliverFooter(
               border: null,
-              scrollController: scrollController!,
+              scrollController: scrollController,
               backgroundColor: widget.footerColor,
               height: widget.footerHeight!,
               child: widget.footer!,
