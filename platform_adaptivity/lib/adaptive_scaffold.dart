@@ -521,7 +521,13 @@ class _BiCupertinoScaffoldState extends State<BiCupertinoScaffold> {
                                 ),
                               ],
                             ),
-                      middle: widget.titleWidget,
+                      middle: widget.avatar == null
+                          ? null
+                          : widget.titleWidget ??
+                              Text(
+                                widget.title ?? '',
+                                style: widget.titleStyle ?? TextStyle(color: Theme.of(context).primaryColor),
+                              ),
                       leading: widget.leading,
                       previousPageTitle: edited,
                       trailing: widget.appBarActions.isNotEmpty
@@ -566,7 +572,13 @@ class _BiCupertinoScaffoldState extends State<BiCupertinoScaffold> {
                                 ),
                               ],
                             ),
-                      middle: widget.titleWidget,
+                      middle: widget.avatar == null
+                          ? null
+                          : widget.titleWidget ??
+                              Text(
+                                widget.title ?? '',
+                                style: widget.titleStyle ?? TextStyle(color: Theme.of(context).primaryColor),
+                              ),
                       leading: widget.leading,
                       previousPageTitle: edited,
                       trailing: widget.appBarActions.isNotEmpty
