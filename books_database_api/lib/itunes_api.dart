@@ -32,13 +32,18 @@ class AudiobookTunes {
   final String? description;
 }
 
-Future<List<AudiobookTunes>?> queryiTunes(
-  String term, {
+Future<List<AudiobookTunes>?> queryiTunes({
+  String? writer,
+  String? title,
   int limit = 10,
 }) async {
   const String baseUrl = 'itunes.apple.com';
+
+  String term = title ?? ' ';
+  if ((title?.split(' ').length ?? 0) >= 5) term = title!.split(' ').sublist(0, 5).join(' ');
+
   try {
-    final Uri songRequest = Uri.https(
+    final Uri request = Uri.https(
       baseUrl,
       'search',
       <String, String>{
@@ -47,30 +52,24 @@ Future<List<AudiobookTunes>?> queryiTunes(
         'limit': '$limit',
       },
     );
-    final http.Response response = await http.get(songRequest);
+    final http.Response response = await http.get(request);
     if (response.statusCode != 200) {
-      print('iTunes did not respond with status code 200. (URL: $songRequest) Response body was: ${response.body}');
-      return [];
+      print('iTunes did not respond with status code 200. (URL: $request) Response body was: ${response.body}');
+      return null;
     }
     final List<dynamic>? list = json.decode(response.body)['results'] as List<dynamic>?;
-    if (list == null || list.isEmpty) return [];
+    if (list == null || list.isEmpty) return null;
     final List<AudiobookTunes> songs = <AudiobookTunes>[];
     for (final Map<String, dynamic> e in list) {
       songs.add(AudiobookTunes.fromJson(e));
+    }
+    if (writer != null) {
+      final List<AudiobookTunes> result = songs.where((e) => e.artist.toLowerCase() == writer.toLowerCase()).toList();
+      if (result.isNotEmpty) return result;
+      return null;
     }
     return songs;
   } catch (e) {
     rethrow;
   }
-}
-
-Future<AudiobookTunes?> queryiTunesSingle({
-  required String writer,
-  required String title,
-}) async {
-  String query = title;
-  if (title.split(' ').length >= 5) query = title.split(' ').sublist(0, 5).join(' ');
-  final List<AudiobookTunes>? result = await queryiTunes(query);
-  if (result == null || result.isEmpty) return null;
-  return result.firstWhere((e) => e.artist.toLowerCase() == writer.toLowerCase(), orElse: () => result.first);
 }

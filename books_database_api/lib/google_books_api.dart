@@ -56,20 +56,26 @@ enum PrintType {
   magazines,
 }
 
-Future<List<Book>?> queryGoogleBooks(
-  String query, {
-  QueryType? queryType,
+Future<List<Book>?> queryGoogleBooks({
+  String? writer,
+  String? title,
+  QueryType? queryType = QueryType.intitle,
   String? langRestrict,
   int maxResults = 10,
-  OrderBy? orderBy,
-  PrintType? printType = PrintType.all,
+  OrderBy? orderBy = OrderBy.relevance,
+  PrintType? printType = PrintType.books,
   int startIndex = 0,
   bool reschemeImageLinks = false,
 }) async {
-  assert(query.isNotEmpty);
-  assert(startIndex <= maxResults);
-
+  assert(startIndex < maxResults);
   String url = 'https://www.googleapis.com/books/v1/volumes?q=';
+
+  String query = '';
+  if (title != null && writer != null)
+    query = '${title.trim()}+${writer.trim()}';
+  else if (title != null)
+    query = title.trim();
+  else if (writer != null) query = writer.trim();
 
   if (queryType != null) url += '${queryType.name}:';
   url += query.trim().replaceAll(' ', '+');
@@ -91,29 +97,6 @@ Future<List<Book>?> queryGoogleBooks(
     books.add(Book.fromJson(e, reschemeImageLinks: reschemeImageLinks));
   }
   return books;
-}
-
-Future<Book?> queryGoogleBooksSingle({
-  required String writer,
-  required String title,
-  String? langRestrict,
-}) async {
-  String url = 'https://www.googleapis.com/books/v1/volumes?q='
-      'intitle:${title.trim().replaceAll(' ', '+')}+${writer.trim().replaceAll(' ', '+')}'
-      '&maxResults=1'
-      '&startIndex=0'
-      '&printType=books'
-      '&orderBy=relevance';
-  if (langRestrict != null) url += '&langRestrict=$langRestrict';
-
-  final http.Response response = await http.get(Uri.parse(url));
-  if (response.statusCode != 200) {
-    print(response.body);
-    return null;
-  }
-  final List<dynamic>? list = json.decode(response.body)['items'] as List<dynamic>?;
-  if (list == null || list.isEmpty) return null;
-  return Book.fromJson(list.first);
 }
 
 class Book {
