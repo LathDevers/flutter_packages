@@ -16,7 +16,7 @@ class _ITunesGenre {
   static ({List<String> keys, IconData icon}) get biography => (keys: ['biograph', 'memoir', 'poetr', 'classic'], icon: AdaptiveIcons.feather);
   static ({List<String> keys, IconData icon}) get religion => (keys: ['religion', 'spiritualit'], icon: AdaptiveIcons.pray);
   static ({List<String> keys, IconData icon}) get action => (keys: ['action'], icon: AdaptiveIcons.racing);
-  static ({List<String> keys, IconData icon}) get adventure => (keys: ['adventure'], icon: AdaptiveIcons.binoculars_fill);
+  static ({List<String> keys, IconData icon}) get adventure => (keys: ['adventure'], icon: AdaptiveIcons.binoculars);
   static ({List<String> keys, IconData icon}) get arts => (keys: ['art'], icon: AdaptiveIcons.arts);
   static ({List<String> keys, IconData? icon}) get comedy => (keys: ['comed', 'entertainment'], icon: AdaptiveIcons.entertainment);
   static ({List<String> keys, IconData icon}) get tragedy => (keys: ['traged', 'drama'], icon: AdaptiveIcons.tragedy);
