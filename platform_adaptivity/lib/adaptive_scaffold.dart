@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:datatype_extensions/hslcolor_extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:platform_adaptivity/l10n/app_localizations.dart';
@@ -39,12 +38,11 @@ class AdaptiveScaffold extends StatelessWidget {
     this.headerColor,
     this.footer,
     this.footerHeight,
-    this.footerColor,
-    this.backgroundColor,
     required this.locale,
     this.controller,
   })  : _isSingle = true,
         children = const [];
+
   const AdaptiveScaffold.multiple({
     super.key,
     this.title,
@@ -62,8 +60,6 @@ class AdaptiveScaffold extends StatelessWidget {
     this.headerColor,
     this.footer,
     this.footerHeight,
-    this.footerColor,
-    this.backgroundColor,
     required this.locale,
     this.controller,
   })  : _isSingle = false,
@@ -91,8 +87,6 @@ class AdaptiveScaffold extends StatelessWidget {
   final Color? headerColor;
   final Widget? footer;
   final double? footerHeight;
-  final Color? footerColor;
-  final Color? backgroundColor;
   final ScrollController? controller;
 
   final String locale;
@@ -113,7 +107,6 @@ class AdaptiveScaffold extends StatelessWidget {
             titleWidget: titleWidget,
             header: header,
             footer: footer,
-            backgroundColor: backgroundColor,
             controller: controller,
             child: child,
           );
@@ -128,7 +121,6 @@ class AdaptiveScaffold extends StatelessWidget {
             titleWidget: titleWidget,
             header: header,
             footer: footer,
-            backgroundColor: backgroundColor,
             controller: controller,
             children: children,
           );
@@ -151,8 +143,6 @@ class AdaptiveScaffold extends StatelessWidget {
             headerColor: headerColor,
             footer: footer,
             footerHeight: footerHeight,
-            footerColor: footerColor,
-            backgroundColor: backgroundColor,
             locale: locale,
             controller: controller,
             child: child,
@@ -173,8 +163,6 @@ class AdaptiveScaffold extends StatelessWidget {
             headerColor: headerColor,
             footer: footer,
             footerHeight: footerHeight,
-            footerColor: footerColor,
-            backgroundColor: backgroundColor,
             locale: locale,
             controller: controller,
             children: children,
@@ -200,8 +188,6 @@ class MaterialScaffold extends StatelessWidget {
     this.titleWidget,
     this.header,
     this.footer,
-    this.appBarBackgroundColor,
-    this.backgroundColor,
     this.controller,
   })  : _isSingle = true,
         children = const [];
@@ -217,8 +203,6 @@ class MaterialScaffold extends StatelessWidget {
     this.titleWidget,
     this.header,
     this.footer,
-    this.appBarBackgroundColor,
-    this.backgroundColor,
     this.controller,
   })  : _isSingle = false,
         child = const SizedBox(),
@@ -228,7 +212,6 @@ class MaterialScaffold extends StatelessWidget {
   final String? title;
   final TextStyle? titleStyle;
   final List<Widget> appBarActions;
-  final Color? appBarBackgroundColor;
   final bool automaticallyImplyLeading;
   final bool wrapWithCenter;
 
@@ -240,12 +223,11 @@ class MaterialScaffold extends StatelessWidget {
   final Widget? header;
   final Widget? footer;
   final ScrollController? controller;
-  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: (leading != null || titleWidget != null || title != null || appBarActions.isNotEmpty)
           ? AppBar(
               leading: leading,
@@ -256,7 +238,7 @@ class MaterialScaffold extends StatelessWidget {
                   ),
               actions: appBarActions,
               automaticallyImplyLeading: automaticallyImplyLeading,
-              backgroundColor: appBarBackgroundColor ?? backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             )
           : null,
       body: Column(
@@ -355,9 +337,6 @@ class BiCupertinoScaffold extends StatefulWidget {
     this.headerColor,
     this.footer,
     this.footerHeight,
-    this.footerColor,
-    this.appBarBackgroundColor,
-    this.backgroundColor,
     required this.locale,
     this.controller,
   })  : _isSingle = true,
@@ -379,9 +358,6 @@ class BiCupertinoScaffold extends StatefulWidget {
     this.headerColor,
     this.footer,
     this.footerHeight,
-    this.footerColor,
-    this.appBarBackgroundColor,
-    this.backgroundColor,
     required this.locale,
     this.controller,
   })  : _isSingle = false,
@@ -396,7 +372,6 @@ class BiCupertinoScaffold extends StatefulWidget {
   final Widget? titleWidget;
   final TextStyle? titleStyle;
   final List<Widget> appBarActions;
-  final Color? appBarBackgroundColor;
   final bool automaticallyImplyLeading;
   final bool wrapWithCenter;
   final ({ImageProvider image, VoidCallback? onPressed})? avatar;
@@ -408,8 +383,6 @@ class BiCupertinoScaffold extends StatefulWidget {
   final Color? headerColor;
   final Widget? footer;
   final double? footerHeight;
-  final Color? footerColor;
-  final Color? backgroundColor;
   final ScrollController? controller;
 
   final String locale;
@@ -426,12 +399,12 @@ class _BiCupertinoScaffoldState extends State<BiCupertinoScaffold> {
     String? edited = (widget.previousPageTitle == null && widget.automaticallyImplyLeading) ? PackageLocalizations(widget.locale).back : widget.previousPageTitle;
     if (edited != null && edited.length > 12) edited = '${edited.substring(0, 9)}...';
     return Material(
-      color: widget.backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
+      color: Theme.of(context).scaffoldBackgroundColor,
       child: _wrapWithFooter(
         scrollController: widget.controller ?? _backupController,
-        backgroundColor: widget.backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         child: CupertinoPageScaffold(
-          backgroundColor: widget.backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           child: CustomScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             controller: widget.controller ?? _backupController,
@@ -442,7 +415,7 @@ class _BiCupertinoScaffoldState extends State<BiCupertinoScaffold> {
                 CupertinoSliverNavigationBar(
                   alwaysShowMiddle: false,
                   stretch: true,
-                  backgroundColor: (widget.appBarBackgroundColor ?? widget.backgroundColor ?? Theme.of(context).colorScheme.surface).withOpacity(.7),
+                  //backgroundColor: , // TODO: should be visible only if collapsed
                   largeTitle: widget.avatar == null
                       ? widget.titleWidget ??
                           Text(
@@ -514,7 +487,6 @@ class _BiCupertinoScaffoldState extends State<BiCupertinoScaffold> {
             SliverFooter(
               border: null,
               scrollController: scrollController,
-              backgroundColor: widget.footerColor,
               height: widget.footerHeight!,
               child: widget.footer!,
             ),
@@ -526,6 +498,7 @@ class _BiCupertinoScaffoldState extends State<BiCupertinoScaffold> {
       return Material(
         color: backgroundColor ?? Colors.transparent,
         child: Column(
+          // TODO: should be Stack
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             widget.header!,
@@ -536,6 +509,7 @@ class _BiCupertinoScaffoldState extends State<BiCupertinoScaffold> {
     return Material(
       color: backgroundColor ?? Colors.transparent,
       child: Column(
+        // TODO: should be Stack
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           widget.header!,
@@ -621,7 +595,6 @@ class SliverFooter extends StatelessWidget {
   const SliverFooter({
     super.key,
     required this.scrollController,
-    this.backgroundColor,
     this.border = const Border(
       top: BorderSide(
         color: Color(0x4D000000),
@@ -633,7 +606,6 @@ class SliverFooter extends StatelessWidget {
   });
 
   final ScrollController scrollController;
-  final Color? backgroundColor;
   final Border? border;
   final double height;
   final Widget child;
@@ -649,7 +621,6 @@ class SliverFooter extends StatelessWidget {
           bottom: 0,
           child: _StatefulFooterContent(
             scrollController: scrollController,
-            backgroundColor: backgroundColor,
             border: border,
             height: height,
           ),
@@ -666,7 +637,6 @@ class SliverFooter extends StatelessWidget {
 class _StatefulFooterContent extends StatefulWidget {
   const _StatefulFooterContent({
     required this.scrollController,
-    this.backgroundColor,
     this.border = const Border(
       top: BorderSide(
         color: Color(0x4D000000),
@@ -677,7 +647,6 @@ class _StatefulFooterContent extends StatefulWidget {
   });
 
   final ScrollController scrollController;
-  final Color? backgroundColor;
   final Border? border;
   final double height;
 
@@ -743,23 +712,10 @@ class _StatefulFooterContentState extends State<_StatefulFooterContent> {
   }
 
   Color getBackgroundColor() {
-    if (widget.backgroundColor != null) {
-      final HSLColor hslBackgroundColor = HSLColor.fromColor(widget.backgroundColor!);
-      final double hue = hslBackgroundColor.hue;
-      final double saturation = hslBackgroundColor.saturation;
-      final double lightness = hslBackgroundColor.lightness;
-      final double alpha = hslBackgroundColor.alpha;
-      final double lighterLightness = lightness == 0 ? .2 : (lightness * 1.15).clamp(0, 1);
-      if (isCollapsed)
-        return hslBackgroundColor.withCorrectLightness(lighterLightness).withAlpha(.7 * alpha).toColor();
-      else
-        return HSLColor.fromAHSL(alpha, hue, saturation, lightness).toColor();
-    } else {
-      if (isCollapsed)
-        return _kSurfaceColor.resolveFrom(context);
-      else
-        return Theme.of(context).colorScheme.surface;
-    }
+    if (isCollapsed)
+      return _kSurfaceColor.resolveFrom(context);
+    else
+      return Theme.of(context).scaffoldBackgroundColor.withOpacity(.6);
   }
 }
 
