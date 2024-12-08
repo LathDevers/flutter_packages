@@ -1,5 +1,4 @@
 // ignore_for_file: non_constant_identifier_names
-library platform_adaptivity;
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:platform_adaptivity/adaptive_widgets.dart';
@@ -527,14 +526,6 @@ abstract final class AdaptiveIcons {
         _ => throw UnimplementedError(),
       };
 
-  /// Binocular (filled).
-  static IconData get binoculars_fill => switch (designPlatform) {
-        CitecPlatform.material => AppIcons.binocularsfillmaterial,
-        CitecPlatform.ios || CitecPlatform.macos => AppIcons.binocularsfillcupertino,
-        CitecPlatform.fluent => AppIcons.binocularsfillmaterial,
-        _ => throw UnimplementedError(),
-      };
-
   /// Sun and half moon (filled).
   static IconData get day_and_night => switch (designPlatform) {
         CitecPlatform.material => AppIcons.dayandnight,
@@ -631,17 +622,17 @@ abstract final class AdaptiveIcons {
         _ => throw UnimplementedError(),
       };
 
-  /// <i class="material-icons-outlined md-36">description</i> &#x2014; material icon named "summarize" (outlined). <br> <i class='cupertino-icons md-36'>doc_text</i> &#x2014; Cupertino icon named "doc_text".
+  /// <i class="material-icons-outlined md-36">summarize</i> &#x2014; material icon named "summarize" (outlined). <br> <i class='cupertino-icons md-36'>doc_text</i> &#x2014; Cupertino icon named "doc_text".
   static IconData get doc_log => switch (designPlatform) {
-        CitecPlatform.material => Icons.description_outlined,
+        CitecPlatform.material => Icons.summarize_outlined,
         CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.doc_text,
         CitecPlatform.fluent => FluentIcons.document_bullet_list_16_regular,
         _ => throw UnimplementedError(),
       };
 
-  /// <i class="material-icons md-36">description</i> &#x2014; material icon named "description" (round). <br> <i class='cupertino-icons md-36'>doc_text_fill</i> &#x2014; Cupertino icon named "doc_text_fill".
+  /// <i class="material-icons-round md-36">summarize</i> &#x2014; material icon named "summarize" (round). <br> <i class='cupertino-icons md-36'>doc_text_fill</i> &#x2014; Cupertino icon named "doc_text_fill".
   static IconData get doc_log_fill => switch (designPlatform) {
-        CitecPlatform.material => Icons.description_rounded,
+        CitecPlatform.material => Icons.summarize_rounded,
         CitecPlatform.ios || CitecPlatform.macos => CupertinoIcons.doc_text_fill,
         CitecPlatform.fluent => FluentIcons.document_bullet_list_16_filled,
         _ => throw UnimplementedError(),

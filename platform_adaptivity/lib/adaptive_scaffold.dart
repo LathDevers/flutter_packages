@@ -41,7 +41,6 @@ class AdaptiveScaffold extends StatelessWidget {
     this.footerHeight,
     this.footerColor,
     this.backgroundColor,
-    this.onSearchChanged,
     required this.locale,
     this.controller,
   })  : _isSingle = true,
@@ -65,7 +64,6 @@ class AdaptiveScaffold extends StatelessWidget {
     this.footerHeight,
     this.footerColor,
     this.backgroundColor,
-    this.onSearchChanged,
     required this.locale,
     this.controller,
   })  : _isSingle = false,
@@ -95,7 +93,6 @@ class AdaptiveScaffold extends StatelessWidget {
   final double? footerHeight;
   final Color? footerColor;
   final Color? backgroundColor;
-  final void Function(String?)? onSearchChanged;
   final ScrollController? controller;
 
   final String locale;
@@ -116,7 +113,6 @@ class AdaptiveScaffold extends StatelessWidget {
             titleWidget: titleWidget,
             header: header,
             footer: footer,
-            onSearchChanged: onSearchChanged,
             backgroundColor: backgroundColor,
             controller: controller,
             child: child,
@@ -132,7 +128,6 @@ class AdaptiveScaffold extends StatelessWidget {
             titleWidget: titleWidget,
             header: header,
             footer: footer,
-            onSearchChanged: onSearchChanged,
             backgroundColor: backgroundColor,
             controller: controller,
             children: children,
@@ -158,7 +153,6 @@ class AdaptiveScaffold extends StatelessWidget {
             footerHeight: footerHeight,
             footerColor: footerColor,
             backgroundColor: backgroundColor,
-            onSearchChanged: onSearchChanged,
             locale: locale,
             controller: controller,
             child: child,
@@ -181,7 +175,6 @@ class AdaptiveScaffold extends StatelessWidget {
             footerHeight: footerHeight,
             footerColor: footerColor,
             backgroundColor: backgroundColor,
-            onSearchChanged: onSearchChanged,
             locale: locale,
             controller: controller,
             children: children,
@@ -209,7 +202,6 @@ class MaterialScaffold extends StatelessWidget {
     this.footer,
     this.appBarBackgroundColor,
     this.backgroundColor,
-    this.onSearchChanged,
     this.controller,
   })  : _isSingle = true,
         children = const [];
@@ -227,7 +219,6 @@ class MaterialScaffold extends StatelessWidget {
     this.footer,
     this.appBarBackgroundColor,
     this.backgroundColor,
-    this.onSearchChanged,
     this.controller,
   })  : _isSingle = false,
         child = const SizedBox(),
@@ -250,7 +241,6 @@ class MaterialScaffold extends StatelessWidget {
   final Widget? footer;
   final ScrollController? controller;
   final Color? backgroundColor;
-  final void Function(String?)? onSearchChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -368,7 +358,6 @@ class BiCupertinoScaffold extends StatefulWidget {
     this.footerColor,
     this.appBarBackgroundColor,
     this.backgroundColor,
-    this.onSearchChanged,
     required this.locale,
     this.controller,
   })  : _isSingle = true,
@@ -393,7 +382,6 @@ class BiCupertinoScaffold extends StatefulWidget {
     this.footerColor,
     this.appBarBackgroundColor,
     this.backgroundColor,
-    this.onSearchChanged,
     required this.locale,
     this.controller,
   })  : _isSingle = false,
@@ -422,7 +410,6 @@ class BiCupertinoScaffold extends StatefulWidget {
   final double? footerHeight;
   final Color? footerColor;
   final Color? backgroundColor;
-  final void Function(String?)? onSearchChanged;
   final ScrollController? controller;
 
   final String locale;
@@ -432,42 +419,7 @@ class BiCupertinoScaffold extends StatefulWidget {
 }
 
 class _BiCupertinoScaffoldState extends State<BiCupertinoScaffold> {
-  double isVisibleSearchBar = 0;
-  double previousScrollPosition = 0;
-  //bool _isCollapsed = true;
-  int prevScrollDirection = 0;
   final ScrollController _backupController = ScrollController();
-
-  bool handleControllerNotification(ScrollNotification scrollInfo) {
-    if (scrollInfo.depth != 0) return false;
-    if (widget.onSearchChanged == null) return false;
-    prevScrollDirection = scrollInfo.metrics.pixels > previousScrollPosition ? 1 : -1;
-    if (scrollInfo is ScrollUpdateNotification) {
-      if (scrollInfo.dragDetails?.delta.dy != null) {
-        if (prevScrollDirection == 1 && isVisibleSearchBar > 0) {
-          setState(() => isVisibleSearchBar = (40 - scrollInfo.metrics.pixels).clamp(0, 40));
-        } else if (prevScrollDirection == -1 && isVisibleSearchBar < 40) {
-          setState(() => isVisibleSearchBar = (-scrollInfo.metrics.pixels).clamp(0, 40));
-        }
-      } else {
-        Future.delayed(Duration.zero, () {
-          if (isVisibleSearchBar < 20 && isVisibleSearchBar >= 0) {
-            setState(() {
-              //_isCollapsed = true;
-              isVisibleSearchBar = 0;
-            });
-          } else if (isVisibleSearchBar >= 20 && isVisibleSearchBar <= 40) {
-            setState(() {
-              //_isCollapsed = false;
-              isVisibleSearchBar = 40;
-            });
-          }
-        });
-      }
-    }
-    previousScrollPosition = scrollInfo.metrics.pixels;
-    return true;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -480,122 +432,65 @@ class _BiCupertinoScaffoldState extends State<BiCupertinoScaffold> {
         backgroundColor: widget.backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
         child: CupertinoPageScaffold(
           backgroundColor: widget.backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
-          child: NotificationListener<ScrollNotification>(
-            onNotification: handleControllerNotification,
-            child: CustomScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              controller: widget.controller ?? _backupController,
-              //anchor: _isCollapsed ? 0.055 : 0,
-              anchor: lerpDouble(0, 0.055, isVisibleSearchBar / 40) ?? 0,
-              semanticChildCount: widget._isSingle ? 1 : widget.children.length,
-              slivers: <Widget>[
-                if (widget.titleWidget != null || widget.title != null || widget.appBarActions.isNotEmpty || widget.leading != null)
-                  if (widget.onSearchChanged == null)
-                    CupertinoSliverNavigationBar(
-                      alwaysShowMiddle: false,
-                      stretch: true,
-                      backgroundColor: (widget.appBarBackgroundColor ?? widget.backgroundColor ?? Theme.of(context).colorScheme.surface).withOpacity(.7),
-                      largeTitle: widget.avatar == null
-                          ? widget.titleWidget ??
-                              Text(
-                                widget.title ?? '',
-                                style: widget.titleStyle ?? TextStyle(color: Theme.of(context).primaryColor),
-                              )
-                          : Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                widget.titleWidget ??
-                                    Text(
-                                      widget.title ?? '',
-                                      style: widget.titleStyle ?? TextStyle(color: Theme.of(context).primaryColor),
-                                    ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 16),
-                                  child: InkWell(
-                                    onTap: widget.avatar!.onPressed,
-                                    child: CircleAvatar(
-                                      foregroundImage: widget.avatar!.image,
-                                    ),
-                                  ),
+          child: CustomScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            controller: widget.controller ?? _backupController,
+            //anchor: _isCollapsed ? 0.055 : 0,
+            semanticChildCount: widget._isSingle ? 1 : widget.children.length,
+            slivers: <Widget>[
+              if (widget.titleWidget != null || widget.title != null || widget.appBarActions.isNotEmpty || widget.leading != null)
+                CupertinoSliverNavigationBar(
+                  alwaysShowMiddle: false,
+                  stretch: true,
+                  backgroundColor: (widget.appBarBackgroundColor ?? widget.backgroundColor ?? Theme.of(context).colorScheme.surface).withOpacity(.7),
+                  largeTitle: widget.avatar == null
+                      ? widget.titleWidget ??
+                          Text(
+                            widget.title ?? '',
+                            style: widget.titleStyle ?? TextStyle(color: Theme.of(context).primaryColor),
+                          )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            widget.titleWidget ??
+                                Text(
+                                  widget.title ?? '',
+                                  style: widget.titleStyle ?? TextStyle(color: Theme.of(context).primaryColor),
                                 ),
-                              ],
-                            ),
-                      middle: widget.avatar == null
-                          ? null
-                          : widget.titleWidget ??
-                              Text(
-                                widget.title ?? '',
-                                style: widget.titleStyle ?? TextStyle(color: Theme.of(context).primaryColor),
-                              ),
-                      leading: widget.leading,
-                      previousPageTitle: edited,
-                      trailing: widget.appBarActions.isNotEmpty
-                          ? Row(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: widget.appBarActions,
-                            )
-                          : null,
-                      border: null,
-                      automaticallyImplyLeading: widget.automaticallyImplyLeading,
-                    )
-                  else
-                    CupertinoSliverNavigationBar.search(
-                      alwaysShowMiddle: false,
-                      stretch: true,
-                      backgroundColor: (widget.appBarBackgroundColor ?? widget.backgroundColor ?? Theme.of(context).colorScheme.surface).withOpacity(.7),
-                      largeTitle: widget.avatar == null
-                          ? widget.titleWidget ??
-                              Text(
-                                widget.title ?? '',
-                                style: widget.titleStyle ?? TextStyle(color: Theme.of(context).primaryColor),
-                              )
-                          : Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                widget.titleWidget ??
-                                    Text(
-                                      widget.title ?? '',
-                                      style: widget.titleStyle ?? TextStyle(color: Theme.of(context).primaryColor),
-                                    ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 16),
-                                  child: InkWell(
-                                    onTap: widget.avatar!.onPressed,
-                                    child: CircleAvatar(
-                                      foregroundImage: widget.avatar!.image,
-                                    ),
-                                  ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 16),
+                              child: InkWell(
+                                onTap: widget.avatar!.onPressed,
+                                child: CircleAvatar(
+                                  foregroundImage: widget.avatar!.image,
                                 ),
-                              ],
-                            ),
-                      middle: widget.avatar == null
-                          ? null
-                          : widget.titleWidget ??
-                              Text(
-                                widget.title ?? '',
-                                style: widget.titleStyle ?? TextStyle(color: Theme.of(context).primaryColor),
                               ),
-                      leading: widget.leading,
-                      previousPageTitle: edited,
-                      trailing: widget.appBarActions.isNotEmpty
-                          ? Row(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: widget.appBarActions,
-                            )
-                          : null,
-                      border: null,
-                      automaticallyImplyLeading: widget.automaticallyImplyLeading,
-                      //onSearchChanged: widget.onSearchChanged, // TODO:
-                    ),
-                buildBodyCupertino(),
-              ],
-            ),
+                            ),
+                          ],
+                        ),
+                  middle: widget.avatar == null
+                      ? null
+                      : widget.titleWidget ??
+                          Text(
+                            widget.title ?? '',
+                            style: widget.titleStyle ?? TextStyle(color: Theme.of(context).primaryColor),
+                          ),
+                  leading: widget.leading,
+                  previousPageTitle: edited,
+                  trailing: widget.appBarActions.isNotEmpty
+                      ? Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: widget.appBarActions,
+                        )
+                      : null,
+                  border: null,
+                  automaticallyImplyLeading: widget.automaticallyImplyLeading,
+                ),
+              buildBodyCupertino(),
+            ],
           ),
         ),
       ),

@@ -9,28 +9,25 @@ import 'package:flutter/services.dart';
 bool get isCupertino {
   //if (kIsWeb) return false;
   // in the case of a web app, [defaultTargetPlatform] returns the platform the application's browser is running in
-  switch (defaultTargetPlatform) {
-    case TargetPlatform.android:
-    case TargetPlatform.fuchsia:
-    case TargetPlatform.linux:
-    case TargetPlatform.windows:
+  switch (designPlatform) {
+    case CitecPlatform.material:
+    case CitecPlatform.yaru:
+    case CitecPlatform.fluent:
       return false;
-    case TargetPlatform.iOS:
-    case TargetPlatform.macOS:
+    case CitecPlatform.ios:
+    case CitecPlatform.macos:
       return true;
   }
 }
 
-CitecPlatform get designPlatform {
-  return switch (defaultTargetPlatform) {
-    TargetPlatform.android => CitecPlatform.material,
-    TargetPlatform.fuchsia => CitecPlatform.material,
-    TargetPlatform.linux => CitecPlatform.yaru,
-    TargetPlatform.windows => CitecPlatform.fluent,
-    TargetPlatform.iOS => CitecPlatform.ios,
-    TargetPlatform.macOS => CitecPlatform.macos,
-  };
-}
+CitecPlatform designPlatform = switch (defaultTargetPlatform) {
+  TargetPlatform.android => CitecPlatform.material,
+  TargetPlatform.fuchsia => CitecPlatform.material,
+  TargetPlatform.linux => CitecPlatform.yaru,
+  TargetPlatform.windows => CitecPlatform.fluent,
+  TargetPlatform.iOS => CitecPlatform.ios,
+  TargetPlatform.macOS => CitecPlatform.macos,
+};
 
 enum CitecPlatform {
   /// Google defines Material design guidelines for Android devices
@@ -70,14 +67,13 @@ bool get isPhone {
 
 void onTapHaptic<T>(void Function(T)? fct, T value) {
   if (fct == null) return;
-  switch (defaultTargetPlatform) {
-    case TargetPlatform.iOS:
-    case TargetPlatform.android:
+  switch (designPlatform) {
+    case CitecPlatform.ios:
+    case CitecPlatform.material:
       HapticFeedback.mediumImpact();
-    case TargetPlatform.fuchsia:
-    case TargetPlatform.linux:
-    case TargetPlatform.macOS:
-    case TargetPlatform.windows:
+    case CitecPlatform.yaru:
+    case CitecPlatform.macos:
+    case CitecPlatform.fluent:
       break;
   }
   return fct(value);
@@ -85,14 +81,13 @@ void onTapHaptic<T>(void Function(T)? fct, T value) {
 
 void Function()? onTapHapticFeedback(void Function()? fct) {
   if (fct == null) return null;
-  switch (defaultTargetPlatform) {
-    case TargetPlatform.iOS:
-    case TargetPlatform.android:
+  switch (designPlatform) {
+    case CitecPlatform.ios:
+    case CitecPlatform.material:
       HapticFeedback.mediumImpact();
-    case TargetPlatform.fuchsia:
-    case TargetPlatform.linux:
-    case TargetPlatform.macOS:
-    case TargetPlatform.windows:
+    case CitecPlatform.yaru:
+    case CitecPlatform.macos:
+    case CitecPlatform.fluent:
       break;
   }
   return fct;
@@ -128,30 +123,27 @@ class BiLayoutBuilder extends StatelessWidget {
 /// Returns [android] on Android, returns [ios] on iOS, returns [web] on the web, returns [windows] on Windows, returns [macos] on macOS, returns [linux] on Linux,
 /// returns [fuchsia] on Google Fuchsia.
 class AdaptiveWidget extends StatelessWidget {
-  const AdaptiveWidget({super.key, this.android, this.ios, this.web, this.windows, this.macos, this.linux, this.fuchsia});
+  const AdaptiveWidget({super.key, this.android, this.ios, this.web, this.windows, this.macos, this.linux});
   final Widget? android;
   final Widget? ios;
   final Widget? web;
   final Widget? windows;
   final Widget? macos;
   final Widget? linux;
-  final Widget? fuchsia;
 
   @override
   Widget build(BuildContext context) {
     if (kIsWeb) return web ?? notImplementedPlatform(context);
-    switch (defaultTargetPlatform) {
-      case TargetPlatform.android:
+    switch (designPlatform) {
+      case CitecPlatform.material:
         return android ?? notImplementedPlatform(context);
-      case TargetPlatform.fuchsia:
-        return fuchsia ?? notImplementedPlatform(context);
-      case TargetPlatform.linux:
+      case CitecPlatform.yaru:
         return linux ?? notImplementedPlatform(context);
-      case TargetPlatform.windows:
+      case CitecPlatform.fluent:
         return windows ?? notImplementedPlatform(context);
-      case TargetPlatform.iOS:
+      case CitecPlatform.ios:
         return ios ?? notImplementedPlatform(context);
-      case TargetPlatform.macOS:
+      case CitecPlatform.macos:
         return macos ?? notImplementedPlatform(context);
     }
   }

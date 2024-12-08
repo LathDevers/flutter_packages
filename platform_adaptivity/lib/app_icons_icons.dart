@@ -11,15 +11,18 @@
 ///      fonts:
 ///       - asset: fonts/AppIcons.ttf
 ///
-/// 
 ///
+///
+library;
+
 import 'package:flutter/widgets.dart';
 
-class AppIcons {
-  AppIcons._();
+@staticIconProvider
+abstract final class AppIcons {
+  const AppIcons._();
 
   static const _kFontFam = 'AppIcons';
-  static const String? _kFontPkg = null;
+  static const String? _kFontPkg = 'platform_adaptivity';
 
   static const IconData arts = IconData(0xe836, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData atom = IconData(0xe837, fontFamily: _kFontFam, fontPackage: _kFontPkg);

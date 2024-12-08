@@ -10,15 +10,15 @@ dependencies:
       url: git@github.com:LathDevers/flutter_packages.git
       path: datatype_extensions
   dropdown_button2: ^2.3.9
-  fluent_ui: ^4.8.6
-  fluentui_system_icons: ^1.1.236
+  fluent_ui: ^4.9.2
+  fluentui_system_icons: ^1.1.260
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
   font_awesome_flutter: ^10.6.0
   intl: ^0.19.0
-  pull_down_button: ^0.9.4
+  pull_down_button: ^0.10.2
 
 flutter:
   fonts:
@@ -27,8 +27,8 @@ flutter:
         - asset: fonts/AppIcons.ttf
 
 dev_dependencies:
-  custom_lint: ^0.6.0
-  flutter_lints: ^4.0.0
+  custom_lint: ^0.6.8
+  flutter_lints: ^5.0.0
   linter_rules:
     git:
       url: git@github.com:LathDevers/flutter_packages.git

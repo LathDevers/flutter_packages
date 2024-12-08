@@ -16,8 +16,8 @@ dependencies:
       path: toast
 
 dev_dependencies:
-  custom_lint: ^0.6.0
-  flutter_lints: ^4.0.0
+  custom_lint: ^0.6.8
+  flutter_lints: ^5.0.0
   linter_rules:
     git:
       url: git@github.com:LathDevers/flutter_packages.git

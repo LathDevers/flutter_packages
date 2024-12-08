@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:platform_adaptivity/adaptive_icons.dart';
 
 const Duration _kExpand = Duration(milliseconds: 200);
 
@@ -528,7 +529,7 @@ class SettingsExpansionTileState extends State<SettingsExpansionTile> with Singl
   Widget? _buildIcon(BuildContext context) {
     return RotationTransition(
       turns: _iconTurns,
-      child: const Icon(Icons.expand_more),
+      child: Icon(AdaptiveIcons.chevron_down),
     );
   }
 

@@ -19,8 +19,8 @@ class AdaptivePullDownButton extends StatefulWidget {
     this.onOpen,
     required this.itemBuilder,
     this.padding = const EdgeInsets.all(8),
-    this.child,
     this.iconColor,
+    this.child,
   });
 
   /// This function is executed directly before opening the menu.
@@ -28,11 +28,11 @@ class AdaptivePullDownButton extends StatefulWidget {
   final List<AdaptivePullDownEntry> Function(BuildContext) itemBuilder;
   final EdgeInsetsGeometry padding;
 
-  /// If omitted, defaults to <br> <i class="material-icons-round md-36">menu</i> &#x2014; material icon named "menu" (round). <br> <i class='cupertino-icons md-36'>ellipsis_circle</i> &#x2014; Cupertino icon named "ellipsis_circle".
-  final Widget? child;
-
   /// Used for <br> <i class="material-icons-round md-36">menu</i> &#x2014; or <i class='cupertino-icons md-36'>ellipsis_circle</i> &#x2014; <br> Only if [child] is omitted.
   final Color? iconColor;
+
+  /// If omitted, defaults to <br> <i class="material-icons-round md-36">menu</i> &#x2014; material icon named "menu" (round). <br> <i class='cupertino-icons md-36'>ellipsis_circle</i> &#x2014; Cupertino icon named "ellipsis_circle".
+  final Widget? child;
 
   @override
   State<AdaptivePullDownButton> createState() => AdaptivePullDownButtonState();

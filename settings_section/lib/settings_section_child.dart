@@ -11,22 +11,23 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-const double kDefaultMargin = 8;
-const TextStyle _kExplanationTextStyle = TextStyle(fontSize: 12, color: Colors.grey, height: 1);
+class SettingsSectionDefaults {
+  static const double radius = 10;
+  static const double margin = 8;
+  static const TextStyle explanationTextStyle = TextStyle(fontSize: 12, color: Colors.grey, height: 1);
+}
 
 abstract class SettingsSectionChild extends Widget {
   const SettingsSectionChild({super.key});
 }
 
-class SettingsSectionSubGroup extends StatelessWidget implements SettingsSectionChild {
-  const SettingsSectionSubGroup({
+class SettingsSectionSubColumn extends StatelessWidget implements SettingsSectionChild {
+  const SettingsSectionSubColumn({
     super.key,
     this.elevation = 0,
     this.color,
     required this.subsections,
   });
-
-  static const double kDefaultRadius = 10;
 
   final Iterable<SettingsSectionChild> subsections;
   final double elevation;
@@ -37,17 +38,56 @@ class SettingsSectionSubGroup extends StatelessWidget implements SettingsSection
     return Card(
       elevation: elevation,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(kDefaultRadius),
+        borderRadius: BorderRadius.circular(SettingsSectionDefaults.radius),
       ),
       margin: EdgeInsets.zero,
       color: color,
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(kDefaultRadius),
+        borderRadius: BorderRadius.circular(SettingsSectionDefaults.radius),
         child: Column(
           children: subsections.insertSeparator(const SectionDivider()).toList(),
         ),
       ),
     );
+  }
+}
+
+class SettingsSectionSubRow extends StatelessWidget implements SettingsSectionChild {
+  const SettingsSectionSubRow({
+    super.key,
+    required this.subsections,
+  });
+
+  final Iterable<SettingsSectionChild> subsections;
+
+  @override
+  Widget build(BuildContext context) {
+    return IntrinsicHeight(
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: subsections
+            .map(
+              (e) => Flexible(
+                child: e,
+              ),
+            )
+            .insertSeparator(SizedBox(width: SettingsSectionDefaults.margin))
+            .toList(),
+      ),
+    );
+  }
+}
+
+extension _WidgetListExtension on Iterable<Flexible> {
+  Iterable<Widget> insertSeparator(Widget separator) sync* {
+    final iterator = this.iterator;
+    if (!iterator.moveNext()) return;
+    yield iterator.current;
+    while (iterator.moveNext()) {
+      yield separator;
+      yield iterator.current;
+    }
   }
 }
 
@@ -210,15 +250,14 @@ class SettingsListTile extends StatelessWidget implements SettingsSectionChild {
   }
 
   void _emitVibration({bool android = true, bool ios = true}) {
-    switch (defaultTargetPlatform) {
-      case TargetPlatform.iOS:
+    switch (designPlatform) {
+      case CitecPlatform.ios:
         if (ios) HapticFeedback.mediumImpact();
-      case TargetPlatform.android:
+      case CitecPlatform.material:
         if (android) HapticFeedback.mediumImpact();
-      case TargetPlatform.fuchsia:
-      case TargetPlatform.linux:
-      case TargetPlatform.macOS:
-      case TargetPlatform.windows:
+      case CitecPlatform.yaru:
+      case CitecPlatform.macos:
+      case CitecPlatform.fluent:
         break;
     }
   }
@@ -300,6 +339,200 @@ class SettingsListTile extends StatelessWidget implements SettingsSectionChild {
       trailingIcon,
       color: _iconColor(context),
     );
+  }
+}
+
+enum _SettingsTileType { tile, switchTile, checkboxTile }
+
+class SettingsTile extends StatefulWidget implements SettingsSectionChild {
+  const SettingsTile({
+    super.key,
+    this.enabled = true,
+    this.contentPadding = const EdgeInsets.symmetric(horizontal: 16),
+    this.child,
+    this.label,
+    this.elevation = 0,
+    this.backgroundColor,
+    this.primaryColor,
+    this.onTap,
+    this.isDestructive = false,
+  })  : assert(child != null),
+        _type = _SettingsTileType.tile,
+        value = false,
+        onChanged = null;
+
+  const SettingsTile.switchAdaptive({
+    super.key,
+    this.enabled = true,
+    this.contentPadding = const EdgeInsets.symmetric(horizontal: 16),
+    this.label,
+    this.elevation = 0,
+    this.backgroundColor,
+    this.primaryColor,
+    required this.value,
+    this.onChanged,
+    this.isDestructive = false,
+  })  : _type = _SettingsTileType.switchTile,
+        onTap = null,
+        child = null;
+
+  const SettingsTile.checkboxAdaptive({
+    super.key,
+    this.enabled = true,
+    this.contentPadding = const EdgeInsets.symmetric(horizontal: 16),
+    this.label,
+    this.elevation = 0,
+    this.backgroundColor,
+    this.primaryColor,
+    required this.value,
+    this.onChanged,
+    this.isDestructive = false,
+  })  : _type = _SettingsTileType.checkboxTile,
+        onTap = null,
+        child = null;
+
+  final bool enabled;
+  final EdgeInsetsGeometry contentPadding;
+  final String? label;
+  final double elevation;
+  final Color? backgroundColor;
+  final Color? primaryColor;
+  final Widget? child;
+  final bool value;
+  final void Function(bool?)? onChanged;
+  final void Function()? onTap;
+  final bool isDestructive;
+
+  final _SettingsTileType _type;
+
+  @override
+  State<SettingsTile> createState() => _SettingsTileState();
+}
+
+class _SettingsTileState extends State<SettingsTile> {
+  bool _hovered = false;
+
+  void _handleMouseEnter(PointerEnterEvent event) {
+    if (!_hovered) {
+      setState(() {
+        _hovered = true;
+      });
+    }
+  }
+
+  void _handleMouseExit(PointerExitEvent event) {
+    if (_hovered) {
+      setState(() {
+        _hovered = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: _enabled ? _handleMouseEnter : null,
+      onExit: _enabled ? _handleMouseExit : null,
+      child: GestureDetector(
+        onTap: widget.enabled ? _onTap : null,
+        child: Card(
+          elevation: widget.elevation,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(SettingsSectionDefaults.radius),
+          ),
+          margin: EdgeInsets.zero,
+          color: _backgroundColor(context),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(SettingsSectionDefaults.radius),
+            child: Container(
+              constraints: BoxConstraints(minHeight: 45),
+              child: Center(
+                child: _labelWrapper(
+                  context,
+                  child: switch (widget._type) {
+                    _SettingsTileType.tile => widget.child!,
+                    _SettingsTileType.switchTile => AdaptiveSwitch(
+                        value: widget.value,
+                        isDestructive: widget.isDestructive,
+                        onChanged: widget.enabled ? widget.onChanged : null,
+                      ),
+                    _SettingsTileType.checkboxTile => AdaptiveCheckbox(
+                        value: widget.value,
+                        onChanged: widget.onChanged,
+                        enabled: widget.enabled,
+                        activeColor: _primaryColor(context),
+                        inactiveColor: _primaryColor(context),
+                        deactivatedColor: Theme.of(context).disabledColor,
+                        tickColor: Theme.of(context).scaffoldBackgroundColor,
+                        splashRadius: 16,
+                      ),
+                  },
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  bool get _enabled {
+    if (!widget.enabled) return false;
+    if (widget.onTap == null && widget.onChanged == null) return false;
+    return true;
+  }
+
+  Widget _labelWrapper(
+    BuildContext context, {
+    required Widget child,
+  }) {
+    if (widget.label == null) return child;
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        child,
+        Text(
+          widget.label!.capitalizeTitleCupertino,
+          style: TextStyle(
+            color: _primaryColor(context),
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    );
+  }
+
+  void Function()? get _onTap {
+    if (widget.onTap == null && widget.onChanged == null) return null;
+    return () {
+      _emitVibration();
+      widget.onTap?.call();
+      widget.onChanged?.call(!widget.value);
+    };
+  }
+
+  void _emitVibration({bool android = true, bool ios = true}) {
+    switch (designPlatform) {
+      case CitecPlatform.ios:
+        if (ios) HapticFeedback.mediumImpact();
+      case CitecPlatform.material:
+        if (android) HapticFeedback.mediumImpact();
+      case CitecPlatform.yaru:
+      case CitecPlatform.macos:
+      case CitecPlatform.fluent:
+        break;
+    }
+  }
+
+  Color? _backgroundColor(BuildContext context) {
+    if (!_enabled) return (widget.backgroundColor ?? Theme.of(context).cardColor).withOpacity(.5);
+    return widget.backgroundColor;
+  }
+
+  Color _primaryColor(BuildContext context) {
+    if (widget.isDestructive) return Theme.of(context).colorScheme.error;
+    return widget.primaryColor ?? Theme.of(context).primaryColor;
   }
 }
 
@@ -445,6 +678,121 @@ class SettingsListTileDropDown<T> extends StatelessWidget implements SettingsSec
   }
 }
 
+class SettingsTileDropDown<T> extends StatefulWidget implements SettingsSectionChild {
+  const SettingsTileDropDown({
+    super.key,
+    this.label,
+    this.elevation = 0,
+    this.backgroundColor,
+    this.primaryColor,
+    this.onChanged,
+    required this.elements,
+    this.isDestructive = false,
+  });
+
+  final String? label;
+  final double elevation;
+  final Color? backgroundColor;
+  final Color? primaryColor;
+  final void Function(T?)? onChanged;
+  final Map<T, MyDDElement> elements;
+  final bool isDestructive;
+
+  @override
+  State<SettingsTileDropDown<T>> createState() => _SettingsTileDropDownState<T>();
+}
+
+class _SettingsTileDropDownState<T> extends State<SettingsTileDropDown<T>> {
+  final GlobalKey<AdaptivePullDownButtonState> _pullDownKey = GlobalKey();
+  bool _hovered = false;
+
+  void _handleMouseEnter(PointerEnterEvent event) {
+    if (!_hovered) {
+      setState(() {
+        _hovered = true;
+      });
+    }
+  }
+
+  void _handleMouseExit(PointerExitEvent event) {
+    if (_hovered) {
+      setState(() {
+        _hovered = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: _enabled ? _handleMouseEnter : null,
+      onExit: _enabled ? _handleMouseExit : null,
+      child: GestureDetector(
+        onTap: switch (designPlatform) {
+          CitecPlatform.material => null,
+          CitecPlatform.ios => _pullDownKey.currentState?.showCupertinoMenu,
+          _ => throw UnimplementedError(),
+        },
+        child: Card(
+          elevation: widget.elevation,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(SettingsSectionDefaults.radius),
+          ),
+          margin: EdgeInsets.zero,
+          color: _backgroundColor(context),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(SettingsSectionDefaults.radius),
+            child: Container(
+              constraints: BoxConstraints(minHeight: 45),
+              child: Center(
+                child: _buildDropDown(context),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  bool get _enabled => widget.onChanged != null;
+
+  Widget _buildDropDown(BuildContext context) {
+    return AdaptivePullDownButton(
+      key: _pullDownKey,
+      padding: EdgeInsets.zero,
+      iconColor: _primaryColor(context),
+      itemBuilder: (context) => widget.elements.keys
+          .map(
+            (key) => AdaptivePullDownItem(
+              title: widget.elements[key]!.name(context),
+              icon: widget.elements[key]!.icon?.icon,
+              iconColor: widget.elements[key]!.icon?.color,
+              onTap: () => widget.onChanged?.call(key),
+            ),
+          )
+          .toList(),
+      child: widget.label == null
+          ? null
+          : Text(
+              widget.label!.capitalizeTitleCupertino,
+              style: TextStyle(
+                color: _primaryColor(context),
+              ),
+            ),
+    );
+  }
+
+  Color? _backgroundColor(BuildContext context) {
+    if (!_enabled) return (widget.backgroundColor ?? Theme.of(context).cardColor).withOpacity(.5);
+    return widget.backgroundColor;
+  }
+
+  Color _primaryColor(BuildContext context) {
+    if (widget.isDestructive) return Theme.of(context).colorScheme.error;
+    return widget.primaryColor ?? Theme.of(context).primaryColor;
+  }
+}
+
 class SettingsFooter extends StatelessWidget implements SettingsSectionChild {
   const SettingsFooter({
     super.key,
@@ -456,10 +804,10 @@ class SettingsFooter extends StatelessWidget implements SettingsSectionChild {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: kDefaultMargin),
+      padding: const EdgeInsets.symmetric(horizontal: SettingsSectionDefaults.margin),
       child: Text(
         text,
-        style: _kExplanationTextStyle,
+        style: SettingsSectionDefaults.explanationTextStyle,
       ),
     );
   }

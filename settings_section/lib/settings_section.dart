@@ -23,10 +23,10 @@ class SettingsSection extends StatefulWidget {
     this.color,
     this.isExpandable = true,
     this.margin = const EdgeInsets.only(
-      left: kDefaultMargin,
+      left: SettingsSectionDefaults.margin,
       top: spaceBetweenSections,
-      right: kDefaultMargin,
-      bottom: kDefaultMargin,
+      right: SettingsSectionDefaults.margin,
+      bottom: SettingsSectionDefaults.margin,
     ),
     this.saveExpandedState = true,
   }) : assert(!(title == null && subtitle != null));
@@ -74,7 +74,7 @@ class _SettingsSectionState extends State<SettingsSection> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: _addSpacingBetween(
-            friendsSpacing: kDefaultMargin,
+            friendsSpacing: SettingsSectionDefaults.margin,
             enemiesSpacing: widget.margin.bottom + widget.margin.top,
             children: _buildChildren(
               children: widget.children,
@@ -88,7 +88,7 @@ class _SettingsSectionState extends State<SettingsSection> {
         key: _expansionTileKey,
         initiallyExpanded: _initiallyExpanded,
         maintainState: false,
-        tilePadding: widget.margin.copyWith(bottom: kDefaultMargin),
+        tilePadding: widget.margin.copyWith(bottom: SettingsSectionDefaults.margin),
         childrenPadding: widget.margin.copyWith(top: 0),
         onExpansionChanged: (bool newValue) => _changeIsExpanded(newValue, false),
         leading: widget.leading,
@@ -104,7 +104,7 @@ class _SettingsSectionState extends State<SettingsSection> {
         ),
         expandedCrossAxisAlignment: CrossAxisAlignment.start,
         children: _addSpacingBetween(
-          friendsSpacing: kDefaultMargin,
+          friendsSpacing: SettingsSectionDefaults.margin,
           enemiesSpacing: widget.margin.bottom + widget.margin.top,
           children: _buildChildren(
             children: widget.children,
@@ -117,7 +117,7 @@ class _SettingsSectionState extends State<SettingsSection> {
     final List<Widget> result = [];
     final List<SettingsSectionChild> group = [];
     for (final SettingsSectionChild subsection in children) {
-      if (subsection is! SettingsSectionSubGroup && subsection is! SettingsFooter) {
+      if (subsection is! SettingsSectionSubColumn && subsection is! SettingsSectionSubRow && subsection is! SettingsFooter) {
         // temp save unwrapped subsection
         group.add(subsection);
       } else {
@@ -125,13 +125,16 @@ class _SettingsSectionState extends State<SettingsSection> {
         if (group.isNotEmpty) {
           // there are unwrapped subsection(s) from before
           // wrap them
-          result.add(SettingsSectionSubGroup(
+          result.add(SettingsSectionSubColumn(
             elevation: widget.elevation,
             color: widget.color,
             subsections: List.from(group),
           ));
         }
-        if (subsection is SettingsSectionSubGroup) {
+        if (subsection is SettingsSectionSubColumn) {
+          // add wrapped subsection
+          result.add(subsection);
+        } else if (subsection is SettingsSectionSubRow) {
           // add wrapped subsection
           result.add(subsection);
         } else if (subsection is SettingsFooter) {
@@ -146,7 +149,7 @@ class _SettingsSectionState extends State<SettingsSection> {
       // there are unwrapped subsection(s) from before
       // wrap them and store for return
       result.add(
-        SettingsSectionSubGroup(
+        SettingsSectionSubColumn(
           elevation: widget.elevation,
           color: widget.color,
           subsections: group,
@@ -164,7 +167,13 @@ class _SettingsSectionState extends State<SettingsSection> {
     for (int i = 0; i < children.length; i++) {
       result.add(children[i]);
       if (i != children.length - 1) {
-        if ((children[i] is SettingsSectionSubGroup && children[i + 1] is SettingsSectionSubGroup) || (children[i] is Padding && children[i + 1] is SettingsSectionSubGroup))
+        if (children[i] is SettingsSectionSubColumn && children[i + 1] is SettingsSectionSubColumn)
+          result.add(SizedBox(height: enemiesSpacing));
+        else if (children[i] is Padding && children[i + 1] is SettingsSectionSubColumn)
+          result.add(SizedBox(height: enemiesSpacing));
+        else if (children[i] is SettingsSectionSubRow && children[i + 1] is SettingsSectionSubRow)
+          result.add(SizedBox(height: enemiesSpacing));
+        else if (children[i] is Padding && children[i + 1] is SettingsSectionSubRow)
           result.add(SizedBox(height: enemiesSpacing));
         else
           result.add(SizedBox(height: friendsSpacing));
