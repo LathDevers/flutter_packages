@@ -247,7 +247,7 @@ class CupertinoSliverNavigationBarWithImage extends StatefulWidget {
   /// This [Image] will be put in the background of the navigation bar.
   ///
   /// If the navigation bar is collapsed, the image disappears.
-  final Image? backgroundImage;
+  final ImageProvider? backgroundImage;
 
   /// Color of [previousPageTitle]. If this is `null`, `DefaultTextStyle.of(context).style.color` is used.
   ///
@@ -299,7 +299,7 @@ class _CupertinoSliverNavigationBarWithImageState extends State<CupertinoSliverN
           transitionBetweenRoutes: widget.transitionBetweenRoutes,
           heroTag: widget.heroTag,
           persistentHeight: _kNavBarPersistentHeight + MediaQuery.paddingOf(context).top,
-          alwaysShowMiddle: widget.middle != null,
+          alwaysShowMiddle: false,
           stretchConfiguration: widget.stretch ? OverScrollHeaderStretchConfiguration() : null,
           backgroundImage: widget.backgroundImage,
         ),
@@ -355,7 +355,7 @@ class _LargeTitleNavigationBarSliverDelegate extends SliverPersistentHeaderDeleg
   final Object heroTag;
   final double persistentHeight;
   final bool alwaysShowMiddle;
-  final Image? backgroundImage;
+  final ImageProvider? backgroundImage;
 
   @override
   double get minExtent => persistentHeight;
@@ -391,14 +391,17 @@ class _LargeTitleNavigationBarSliverDelegate extends SliverPersistentHeaderDeleg
           children: <Widget>[
             if (backgroundImage != null)
               Positioned(
+                top: 0,
                 left: 0,
                 right: 0,
+                bottom: 0,
                 child: AnimatedOpacity(
                   opacity: showLargeTitle ? 1.0 : 0.0,
                   duration: _kNavBarTitleFadeDuration,
-                  child: AspectRatio(
-                    aspectRatio: 3 / 3,
-                    child: backgroundImage,
+                  child: Image(
+                    image: backgroundImage!,
+                    fit: BoxFit.cover,
+                    alignment: AlignmentDirectional.topCenter,
                   ),
                 ),
               ),
@@ -411,11 +414,9 @@ class _LargeTitleNavigationBarSliverDelegate extends SliverPersistentHeaderDeleg
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      stops: const [0, .5, .8, 1],
+                      stops: const [0, 1],
                       colors: <Color>[
-                        Colors.black.withOpacity(.7),
-                        Colors.black.withOpacity(.3),
-                        backgroundColor.withOpacity(.8),
+                        backgroundColor.withOpacity(0),
                         backgroundColor,
                       ],
                       tileMode: TileMode.clamp,
