@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:platform_adaptivity/l10n/app_localizations.dart';
 
 import 'package:platform_adaptivity/adaptive_widgets.dart';
+import 'package:soft_edge_blur/soft_edge_blur.dart';
 
 const Color _kCupertinoSurfaceColorLight = Color.fromRGBO(255, 255, 255, .6);
 const Color _kCupertinoSurfaceColorDark = Color.fromRGBO(20, 20, 20, .5);
@@ -483,11 +484,28 @@ class _BiCupertinoScaffoldState extends State<BiCupertinoScaffold> {
         child: Stack(
           alignment: AlignmentDirectional.bottomCenter,
           children: [
-            child,
-            SliverFooter(
-              border: null,
-              scrollController: scrollController,
-              height: widget.footerHeight!,
+            SoftEdgeBlur(
+              edges: [
+                EdgeBlur(
+                  type: EdgeType.bottomEdge,
+                  size: widget.footerHeight! * 2,
+                  tintColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.8),
+                  sigma: 30,
+                  controlPoints: [
+                    ControlPoint(
+                      position: .45,
+                      type: ControlPointType.visible,
+                    ),
+                    ControlPoint(
+                      position: .5,
+                      type: ControlPointType.transparent,
+                    ),
+                  ],
+                )
+              ],
+              child: child,
+            ),
+            SliverFooter.progressiveBlur(
               child: widget.footer!,
             ),
           ],
@@ -603,34 +621,48 @@ class SliverFooter extends StatelessWidget {
     ),
     required this.height,
     required this.child,
-  });
+  })  : assert(scrollController != null),
+        assert(height != null && height > 0);
 
-  final ScrollController scrollController;
+  const SliverFooter.progressiveBlur({
+    super.key,
+    required this.child,
+  })  : scrollController = null,
+        border = null,
+        height = null;
+
+  final ScrollController? scrollController;
   final Border? border;
-  final double height;
+  final double? height;
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Positioned(
-          left: 0,
-          top: 0,
-          right: 0,
-          bottom: 0,
-          child: _StatefulFooterContent(
-            scrollController: scrollController,
-            border: border,
-            height: height,
+    if (height != null)
+      return Stack(
+        children: [
+          Positioned(
+            left: 0,
+            top: 0,
+            right: 0,
+            bottom: 0,
+            child: _StatefulFooterContent(
+              scrollController: scrollController!,
+              border: border,
+              height: height!,
+            ),
           ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(bottom: MediaQuery.viewPaddingOf(context).bottom),
-          child: child,
-        ),
-      ],
-    );
+          Padding(
+            padding: EdgeInsets.only(bottom: MediaQuery.viewPaddingOf(context).bottom),
+            child: child,
+          ),
+        ],
+      );
+    else
+      return Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.viewPaddingOf(context).bottom),
+        child: child,
+      );
   }
 }
 
