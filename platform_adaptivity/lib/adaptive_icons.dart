@@ -1233,7 +1233,7 @@ abstract final class AdaptiveIcons {
   /// <i class="material-icons-round md-36">child_care</i> &#x2014; material icon named "child care" (round).
   static IconData get child_care_rounded => switch (designPlatform) {
         CitecPlatform.material => Icons.child_care_rounded,
-        CitecPlatform.ios || CitecPlatform.macos => AppIcons.figure_2_and_child_holdinghands,
+        CitecPlatform.ios || CitecPlatform.macos => AppIcons.figure2AndChildHoldinghands,
         CitecPlatform.fluent => throw UnimplementedError(),
         _ => throw UnimplementedError(),
       };

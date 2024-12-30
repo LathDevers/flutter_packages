@@ -61,7 +61,16 @@ class ColorByBrightness extends Color with Diagnosticable {
   final Color _effectiveColor;
 
   @override
-  int get value => _effectiveColor.value;
+  double get a => _effectiveColor.a;
+
+  @override
+  double get r => _effectiveColor.r;
+
+  @override
+  double get g => _effectiveColor.g;
+
+  @override
+  double get b => _effectiveColor.b;
 
   final String? _debugLabel;
 
@@ -163,12 +172,15 @@ class ColorByBrightness extends Color with Diagnosticable {
     if (other.runtimeType != runtimeType) {
       return false;
     }
-    return other is ColorByBrightness && other.value == value && other.lightColor == lightColor && other.darkColor == darkColor;
+    return other is ColorByBrightness && other.a == a && other.r == r && other.g == g && other.b == b && other.lightColor == lightColor && other.darkColor == darkColor;
   }
 
   @override
   int get hashCode => Object.hash(
-        value,
+        a,
+        r,
+        g,
+        b,
         lightColor,
         darkColor,
       );

@@ -22,8 +22,8 @@ class GlassMorphism extends StatelessWidget {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Colors.white.withOpacity(start),
-                Colors.white.withOpacity(end),
+                Colors.white.withValues(alpha: start),
+                Colors.white.withValues(alpha: end),
               ],
               begin: AlignmentDirectional.topStart,
               end: AlignmentDirectional.bottomEnd,
@@ -31,7 +31,7 @@ class GlassMorphism extends StatelessWidget {
             borderRadius: const BorderRadius.all(Radius.circular(10)),
             border: Border.all(
               width: 1.5,
-              color: Colors.white.withOpacity(0.2),
+              color: Colors.white.withValues(alpha: 0.2),
             ),
           ),
           child: child,

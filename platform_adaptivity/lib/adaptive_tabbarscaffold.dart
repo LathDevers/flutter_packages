@@ -259,7 +259,7 @@ class _MaterialTabScaffoldState extends State<MaterialTabScaffold> {
                         backgroundImage: Image.asset(
                           widget.pages[index].appBar.backgroundImage!,
                           fit: BoxFit.cover,
-                        ),
+                        ).image,
                         userLeading: UserLeading(
                           icon: widget.pages[index].appBar.leadingButton?.icon,
                           text: widget.pages[index].appBar.leadingButton?.text,
@@ -322,7 +322,7 @@ class _MaterialTabScaffoldState extends State<MaterialTabScaffold> {
         bottomNavigationBar: NavigationBar(
           surfaceTintColor: Theme.of(context).colorScheme.primary,
           elevation: _kNavBarElevation,
-          indicatorColor: widget.selectedShadeColor ?? Theme.of(context).colorScheme.primary.withOpacity(.15),
+          indicatorColor: widget.selectedShadeColor ?? Theme.of(context).colorScheme.primary.withValues(alpha: .15),
           backgroundColor: widget.tabColor ?? Theme.of(context).scaffoldBackgroundColor,
           onDestinationSelected: (int index) {
             if (index == currentPageIndex)
@@ -648,7 +648,7 @@ class _MyCupertinoTabScaffoldState extends State<MyCupertinoTabScaffold> {
                           ? Image.asset(
                               widget.pages[index].appBar.backgroundImage!,
                               fit: BoxFit.cover,
-                            )
+                            ).image
                           : null,
                       userLeading: UserLeading(
                         icon: widget.pages[index].appBar.leadingButton?.icon,

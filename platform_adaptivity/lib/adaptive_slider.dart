@@ -403,7 +403,7 @@ class _FillStyleSliderState extends State<FillStyleSlider> with TickerProviderSt
                             child: AnimatedContainer(
                               duration: const Duration(milliseconds: 200),
                               height: tapped ? _kTappedHeight : _kUntappedHeight,
-                              color: widget.inactiveColor?.withOpacity(.3),
+                              color: widget.inactiveColor?.withValues(alpha: .3),
                             ),
                           ),
                         ],

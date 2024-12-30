@@ -39,7 +39,7 @@ class AdaptivePullDownButton extends StatefulWidget {
 }
 
 class AdaptivePullDownButtonState extends State<AdaptivePullDownButton> {
-  static Color _surfaceTintColor(BuildContext context) => Theme.of(context).colorScheme.primary.withOpacity(.1);
+  static Color _surfaceTintColor(BuildContext context) => Theme.of(context).colorScheme.primary.withValues(alpha: .1);
   static final ShapeBorder _shape =
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)); // RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)), // Material 3
   static Color _shadowColor(BuildContext context) => HSLColor.fromColor(Theme.of(context).colorScheme.primary).withLightness(.15).toColor();
@@ -237,10 +237,10 @@ class AdaptivePullDownButtonState extends State<AdaptivePullDownButton> {
     return isDestructive
         ? isEnabled
             ? Theme.of(context).colorScheme.error
-            : Theme.of(context).colorScheme.error.withOpacity(.3)
+            : Theme.of(context).colorScheme.error.withValues(alpha: .3)
         : isEnabled
             ? Theme.of(context).primaryColor
-            : Theme.of(context).primaryColor.withOpacity(.3);
+            : Theme.of(context).primaryColor.withValues(alpha: .3);
   }
 
   void _onSelect(BuildContext context, String value, List<AdaptivePullDownEntry> items) {

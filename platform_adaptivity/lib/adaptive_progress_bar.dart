@@ -85,7 +85,7 @@ class AdaptiveProgressBar extends StatelessWidget {
           CitecPlatform.material => _Material3IndeterminateLinearProgressIndicator(
               key: key,
               color: color,
-              backgroundColor: backgroundColor ?? Theme.of(context).colorScheme.primary.withOpacity(.2),
+              backgroundColor: backgroundColor ?? Theme.of(context).colorScheme.primary.withValues(alpha: .2),
               height: height,
             ),
           CitecPlatform.ios => _CupertinoIndeterminateLinearProgressBar(
@@ -385,7 +385,7 @@ class _Material3DeterminateLinearProgressIndicator extends StatelessWidget {
                     child: Container(
                       width: max(0, maxWidth * (1 - value) - ((value == 0 || value == 1) ? 0 : height / 2)),
                       decoration: BoxDecoration(
-                        color: secondaryColor ?? (color ?? Theme.of(context).colorScheme.primary).withOpacity(.2),
+                        color: secondaryColor ?? (color ?? Theme.of(context).colorScheme.primary).withValues(alpha: .2),
                         borderRadius: BorderRadius.circular(height / 2),
                       ),
                       height: height,

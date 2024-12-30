@@ -237,7 +237,7 @@ class _Material3DeterminateCircularProgressIndicator extends StatelessWidget {
           ),
           child: CustomPaint(
             painter: _CircularProgressIndicatorPainter(
-              backgroundColor: (color ?? ProgressIndicatorTheme.of(context).color ?? Theme.of(context).colorScheme.primary).withOpacity(.2),
+              backgroundColor: (color ?? ProgressIndicatorTheme.of(context).color ?? Theme.of(context).colorScheme.primary).withValues(alpha: .2),
               value: value,
               valueColor: color ?? ProgressIndicatorTheme.of(context).color ?? Theme.of(context).colorScheme.primary,
               headValue: 0,
@@ -408,7 +408,7 @@ class _CupertinoDeterminateCircularProgressIndicator extends StatelessWidget {
           value: value,
           color: color ?? Theme.of(context).colorScheme.primary,
           strokeWidth: strokeWidth,
-          backgroundColor: (color ?? Theme.of(context).colorScheme.primary).withOpacity(.2),
+          backgroundColor: (color ?? Theme.of(context).colorScheme.primary).withValues(alpha: .2),
           strokeCap: StrokeCap.round,
         );
         /*return CupertinoActivityIndicator.partiallyRevealed(

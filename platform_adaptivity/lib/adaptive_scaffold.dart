@@ -489,7 +489,7 @@ class _BiCupertinoScaffoldState extends State<BiCupertinoScaffold> {
                 EdgeBlur(
                   type: EdgeType.bottomEdge,
                   size: widget.footerHeight! * 2,
-                  tintColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.8),
+                  tintColor: Theme.of(context).scaffoldBackgroundColor.withValues(alpha: 0.8),
                   sigma: 30,
                   controlPoints: [
                     ControlPoint(
@@ -732,7 +732,7 @@ class _StatefulFooterContentState extends State<_StatefulFooterContent> {
       ),
     );
 
-    if (getBackgroundColor().alpha != 0xFF)
+    if (getBackgroundColor().a != 0xFF)
       content = ClipRect(
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
@@ -747,7 +747,7 @@ class _StatefulFooterContentState extends State<_StatefulFooterContent> {
     if (isCollapsed)
       return _kSurfaceColor.resolveFrom(context);
     else
-      return Theme.of(context).scaffoldBackgroundColor.withOpacity(.6);
+      return Theme.of(context).scaffoldBackgroundColor.withValues(alpha: .6);
   }
 }
 

@@ -106,7 +106,7 @@ class WavyGradient {
     return LinearGradient(
       begin: begin,
       end: end,
-      colors: _opacity.map(color.withOpacity).toList(),
+      colors: _opacity.map((a) => color.withValues(alpha: a)).toList(),
       stops: _defaultStops,
       tileMode: tileMode,
     ).createShader(rect);

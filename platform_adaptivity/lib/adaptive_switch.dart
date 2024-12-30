@@ -23,9 +23,9 @@ Color _lightThumbColor(BuildContext context, Set<WidgetState> states, bool isDes
       return const Color(0xFFFFFFFF);
   } else {
     if (isEnabled) {
-      return HSLColor.fromColor(_primaryColor(context, isDestructive)).withSaturation(.1).toColor().withOpacity(.8);
+      return HSLColor.fromColor(_primaryColor(context, isDestructive)).withSaturation(.1).toColor().withValues(alpha: .8);
     } else {
-      return HSLColor.fromColor(_primaryColor(context, isDestructive)).withSaturation(.1).withLightness(.6).toColor().withOpacity(.7);
+      return HSLColor.fromColor(_primaryColor(context, isDestructive)).withSaturation(.1).withLightness(.6).toColor().withValues(alpha: .7);
     }
   }
 }
@@ -36,7 +36,7 @@ Color _darkThumbColor(BuildContext context, Set<WidgetState> states, bool isDest
     return HSLColor.fromColor(_primaryColor(context, isDestructive)).withSaturation(.1).withLightness(.6).toColor();
   } else {
     if (states.contains(WidgetState.selected)) return Theme.of(context).colorScheme.surface;
-    return HSLColor.fromColor(_primaryColor(context, isDestructive)).withSaturation(.15).withLightness(.6).toColor().withOpacity(.5);
+    return HSLColor.fromColor(_primaryColor(context, isDestructive)).withSaturation(.15).withLightness(.6).toColor().withValues(alpha: .5);
   }
 }
 
@@ -53,10 +53,10 @@ Color _lightTrackColor(BuildContext context, Set<WidgetState> states, bool isDes
     if (isEnabled)
       return _primaryColor(context, isDestructive);
     else
-      return _primaryColor(context, isDestructive).withOpacity(.2);
+      return _primaryColor(context, isDestructive).withValues(alpha: .2);
   }
   if (isEnabled)
-    return _primaryColor(context, isDestructive).withOpacity(.05);
+    return _primaryColor(context, isDestructive).withValues(alpha: .05);
   else
     return Colors.transparent;
 }
@@ -66,10 +66,10 @@ Color _darkTrackColor(BuildContext context, Set<WidgetState> states, bool isDest
     if (isEnabled)
       return HSLColor.fromColor(_primaryColor(context, isDestructive)).withLightness(.75).withSaturation(.5).toColor();
     else
-      return HSLColor.fromColor(_primaryColor(context, isDestructive)).withLightness(.6).withSaturation(.2).toColor().withOpacity(.15);
+      return HSLColor.fromColor(_primaryColor(context, isDestructive)).withLightness(.6).withSaturation(.2).toColor().withValues(alpha: .15);
   }
   if (isEnabled)
-    return _primaryColor(context, isDestructive).withOpacity(.1);
+    return _primaryColor(context, isDestructive).withValues(alpha: .1);
   else
     return Colors.transparent;
 }
@@ -87,7 +87,7 @@ Color _lightTrackOutlineColor(BuildContext context, Set<WidgetState> states, boo
   if (isEnabled)
     return _lightThumbColor(context, states, isDestructive, isEnabled);
   else
-    return _lightThumbColor(context, states, isDestructive, isEnabled).withOpacity(.25);
+    return _lightThumbColor(context, states, isDestructive, isEnabled).withValues(alpha: .25);
 }
 
 Color _darkTrackOutlineColor(BuildContext context, Set<WidgetState> states, bool isDestructive, bool isEnabled) {
@@ -95,7 +95,7 @@ Color _darkTrackOutlineColor(BuildContext context, Set<WidgetState> states, bool
   if (isEnabled)
     return _darkThumbColor(context, states, isDestructive, isEnabled);
   else
-    return _darkThumbColor(context, states, isDestructive, isEnabled).withOpacity(.25);
+    return _darkThumbColor(context, states, isDestructive, isEnabled).withValues(alpha: .25);
 }
 
 class AdaptiveSwitch extends StatelessWidget {
@@ -175,7 +175,7 @@ class AdaptiveSwitch extends StatelessWidget {
 Color _inactiveTrackColor(BuildContext context) {
   const Color kInactiveTrackColor = Color(0xFF787880);
   if (Theme.of(context).brightness == Brightness.light)
-    return kInactiveTrackColor.withOpacity(.16);
+    return kInactiveTrackColor.withValues(alpha: .16);
   else
-    return kInactiveTrackColor.withOpacity(.32);
+    return kInactiveTrackColor.withValues(alpha: .32);
 }

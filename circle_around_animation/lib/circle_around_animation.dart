@@ -331,7 +331,7 @@ class CircleAroundState extends State<CircleAroundIcon> with TickerProviderState
     if (widget.iconColor == null && widget.colorTween != null) {
       //  Icon default color with animation
       if (_tween4.begin == null || _tween4.end == null) throw Exception('The [begin] and [end] properties must be non-null before the tween is first used.');
-      return Theme.of(context).primaryColor.withOpacity(_tween4.animate(_animation4).value);
+      return Theme.of(context).primaryColor.withValues(alpha: _tween4.animate(_animation4).value);
     }
     if (widget.iconColor != null && widget.colorTween == null) {
       // User color without animation
@@ -339,7 +339,7 @@ class CircleAroundState extends State<CircleAroundIcon> with TickerProviderState
     }
     if (widget.iconColor != null && widget.colorTween != null) {
       // User color with animation
-      return widget.iconColor!.withOpacity(_tween4.animate(_animation4).value);
+      return widget.iconColor!.withValues(alpha: _tween4.animate(_animation4).value);
     }
     return null;
   }

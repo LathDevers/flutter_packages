@@ -7,7 +7,6 @@ import 'package:platform_adaptivity/adaptive_pulldown.dart';
 import 'package:platform_adaptivity/adaptive_widgets.dart';
 import 'package:platform_adaptivity/adaptive_listtile.dart';
 import 'package:platform_adaptivity/adaptive_switch.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -268,7 +267,7 @@ class SettingsListTile extends StatelessWidget implements SettingsSectionChild {
   }
 
   Color _titleColor(BuildContext context) {
-    if (!enabled) return _textColor(context, isDestructive).withOpacity(.5);
+    if (!enabled) return _textColor(context, isDestructive).withValues(alpha: .5);
     return _textColor(context, isDestructive);
   }
 
@@ -279,9 +278,9 @@ class SettingsListTile extends StatelessWidget implements SettingsSectionChild {
 
   Color _secondaryTextColor(BuildContext context) {
     if (Theme.of(context).brightness == Brightness.light)
-      return _titleColor(context).withOpacity(.6).makeDarker(0.06);
+      return _titleColor(context).withValues(alpha: .6).makeDarker(0.06);
     else
-      return _titleColor(context).withOpacity(.6).makeLighter(0.25);
+      return _titleColor(context).withValues(alpha: .6).makeLighter(0.25);
   }
 
   Widget _buildLeadingIcon(BuildContext context) {
@@ -301,12 +300,12 @@ class SettingsListTile extends StatelessWidget implements SettingsSectionChild {
   }
 
   Color _iconBackgroundColor(BuildContext context) {
-    if (!enabled) return _primaryColor(context).withOpacity(.5);
+    if (!enabled) return _primaryColor(context).withValues(alpha: .5);
     return _primaryColor(context);
   }
 
   Color _iconColor(BuildContext context) {
-    if (!enabled) return _textColor(context, isDestructive).withOpacity(.5);
+    if (!enabled) return _textColor(context, isDestructive).withValues(alpha: .5);
     return _textColor(context, isDestructive);
   }
 
@@ -526,7 +525,7 @@ class _SettingsTileState extends State<SettingsTile> {
   }
 
   Color? _backgroundColor(BuildContext context) {
-    if (!_enabled) return (widget.backgroundColor ?? Theme.of(context).cardColor).withOpacity(.5);
+    if (!_enabled) return (widget.backgroundColor ?? Theme.of(context).cardColor).withValues(alpha: .5);
     return widget.backgroundColor;
   }
 
@@ -783,7 +782,7 @@ class _SettingsTileDropDownState<T> extends State<SettingsTileDropDown<T>> {
   }
 
   Color? _backgroundColor(BuildContext context) {
-    if (!_enabled) return (widget.backgroundColor ?? Theme.of(context).cardColor).withOpacity(.5);
+    if (!_enabled) return (widget.backgroundColor ?? Theme.of(context).cardColor).withValues(alpha: .5);
     return widget.backgroundColor;
   }
 

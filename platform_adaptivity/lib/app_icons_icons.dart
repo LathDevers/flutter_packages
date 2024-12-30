@@ -22,7 +22,7 @@ abstract final class AppIcons {
   const AppIcons._();
 
   static const _kFontFam = 'AppIcons';
-  static const String? _kFontPkg = 'platform_adaptivity';
+  static const String _kFontPkg = 'platform_adaptivity';
 
   static const IconData arts = IconData(0xe836, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData atom = IconData(0xe837, fontFamily: _kFontFam, fontPackage: _kFontPkg);
@@ -48,7 +48,7 @@ abstract final class AppIcons {
   static const IconData favoriteslash = IconData(0xe84b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData favoriteslashfill = IconData(0xe84c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData feather = IconData(0xe84d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData figure_2_and_child_holdinghands = IconData(0xe84e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData figure2AndChildHoldinghands = IconData(0xe84e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData figurerun = IconData(0xe84f, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData flutter = IconData(0xe850, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData forward5material = IconData(0xe851, fontFamily: _kFontFam, fontPackage: _kFontPkg);

@@ -21,7 +21,7 @@ Color getColorForSegmentedControl<T>(
 
 enum _SegmentedControlType { material, cupertino, adaptive }
 
-class AdaptiveSegmented<T> extends StatelessWidget {
+class AdaptiveSegmented<T extends Object> extends StatelessWidget {
   const AdaptiveSegmented({
     super.key,
     required this.segments,
@@ -99,7 +99,7 @@ class AdaptiveSegmented<T> extends StatelessWidget {
       groupValue: value,
       children: segments,
       thumbColor: disable ? disabledColor ?? Theme.of(context).disabledColor : Theme.of(context).colorScheme.primary,
-      backgroundColor: Theme.of(context).dividerColor.withOpacity(.5),
+      backgroundColor: Theme.of(context).dividerColor.withValues(alpha: .5),
       onValueChanged: disable
           ? (_) {}
           : (value) {

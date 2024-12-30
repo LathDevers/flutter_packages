@@ -126,7 +126,7 @@ class MyChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor.withOpacity(.15),
+        color: Theme.of(context).cardColor.withValues(alpha: .15),
         borderRadius: BorderRadius.circular(100),
       ),
       child: Padding(

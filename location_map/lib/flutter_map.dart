@@ -461,7 +461,7 @@ class _PulsatingLocationMarkerState extends State<PulsatingLocationMarkerWidget>
           scale: _pulsateTween.animate(_animation),
           child: Icon(
             Icons.circle,
-            color: (widget.markerColor ?? Theme.of(context).colorScheme.primary).withOpacity(.25),
+            color: (widget.markerColor ?? Theme.of(context).colorScheme.primary).withValues(alpha: .25),
             size: widget.markerSize,
           ),
         ),

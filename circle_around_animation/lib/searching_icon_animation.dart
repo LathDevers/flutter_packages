@@ -84,7 +84,7 @@ class SearchingDocAnimatedWidget extends StatelessWidget {
             tween: Tween(begin: 1, end: .9),
             circleDuration: const Duration(seconds: 3),
             scaleDuration: const Duration(seconds: 2),
-            iconColor: Colors.white.withOpacity(.2),
+            iconColor: Colors.white.withValues(alpha: .2),
             iconSize: circleSize,
           ),
         ),

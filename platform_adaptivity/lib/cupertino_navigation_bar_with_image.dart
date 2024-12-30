@@ -12,7 +12,6 @@ import 'dart:ui' show ImageFilter;
 import 'package:datatype_extensions/color_extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
@@ -109,7 +108,7 @@ Widget _wrapWithBackground({
     child: result,
   );
 
-  if (backgroundColor.alpha == 0xFF) return childWithBackground;
+  if (backgroundColor.a == 0xFF) return childWithBackground;
 
   return ClipRect(
     child: BackdropFilter(
@@ -230,7 +229,7 @@ class CupertinoSliverNavigationBarWithImage extends StatefulWidget {
   final Object heroTag;
 
   /// True if the navigation bar's background color has no transparency.
-  bool get opaque => backgroundColor?.alpha == 0xFF;
+  bool get opaque => backgroundColor?.a == 0xFF;
 
   /// Whether the nav bar should stretch to fill the over-scroll area.
   ///
@@ -416,7 +415,7 @@ class _LargeTitleNavigationBarSliverDelegate extends SliverPersistentHeaderDeleg
                       end: Alignment.bottomCenter,
                       stops: const [0, 1],
                       colors: <Color>[
-                        backgroundColor.withOpacity(0),
+                        backgroundColor.withValues(alpha: 0),
                         backgroundColor,
                       ],
                       tileMode: TileMode.clamp,

@@ -168,7 +168,7 @@ class _DynamicDynamicFloatingActionButtonState extends State<DynamicFloatingActi
       return _buildFAB(
         icon: AdaptiveIcons.xmark,
         iconColor: widget.iconColor ?? Theme.of(context).colorScheme.error,
-        backgroundColor: Theme.of(context).colorScheme.error.withOpacity(0.2),
+        backgroundColor: Theme.of(context).colorScheme.error.withValues(alpha: 0.2),
       );
     return _buildFAB(
       icon: AdaptiveIcons.question,
