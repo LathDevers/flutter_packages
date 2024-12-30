@@ -489,11 +489,11 @@ class _BiCupertinoScaffoldState extends State<BiCupertinoScaffold> {
                 EdgeBlur(
                   type: EdgeType.bottomEdge,
                   size: widget.footerHeight! * 2,
-                  tintColor: Theme.of(context).scaffoldBackgroundColor.withValues(alpha: 0.8),
-                  sigma: 30,
+                  tintColor: Theme.of(context).scaffoldBackgroundColor.withValues(alpha: .8),
+                  sigma: 50,
                   controlPoints: [
                     ControlPoint(
-                      position: .45,
+                      position: .35,
                       type: ControlPointType.visible,
                     ),
                     ControlPoint(
