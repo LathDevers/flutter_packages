@@ -101,7 +101,7 @@ class AdaptiveSegmented<T extends Object> extends StatelessWidget {
       selected: {value},
       style: ButtonStyle(
         backgroundColor: WidgetStateProperty.resolveWith((states) {
-          if (states.contains(WidgetState.selected)) return thumbColor(context);
+          if (states.contains(WidgetState.selected)) return _materialThumbColor(context);
           return null;
         }),
         side: WidgetStateProperty.resolveWith((states) {
@@ -117,8 +117,11 @@ class AdaptiveSegmented<T extends Object> extends StatelessWidget {
     return CupertinoSlidingSegmentedControl<T>(
       groupValue: value,
       children: segments,
-      thumbColor: thumbColor(context),
-      backgroundColor: Theme.of(context).dividerColor.withValues(alpha: .5),
+      thumbColor: _cupertinoThumbColor(context),
+      backgroundColor: CupertinoDynamicColor.withBrightness(
+        color: Color(0x1F787880),
+        darkColor: Color(0x3D787880),
+      ),
       onValueChanged: disable
           ? (_) {}
           : (value) {
@@ -128,8 +131,17 @@ class AdaptiveSegmented<T extends Object> extends StatelessWidget {
     );
   }
 
-  Color thumbColor(BuildContext context) {
+  Color _materialThumbColor(BuildContext context) {
     if (disable) return disabledColor ?? Theme.of(context).disabledColor;
     return activeColor ?? Theme.of(context).colorScheme.primary;
+  }
+
+  Color _cupertinoThumbColor(BuildContext context) {
+    if (disable) return disabledColor ?? Theme.of(context).disabledColor;
+    return activeColor ??
+        CupertinoDynamicColor.withBrightness(
+          color: Color(0xFFFFFFFF),
+          darkColor: Color(0xFF636366),
+        );
   }
 }
