@@ -22,32 +22,50 @@ Color getColorForSegmentedControl<T>(
 enum _SegmentedControlType { material, cupertino, adaptive }
 
 class AdaptiveSegmented<T extends Object> extends StatelessWidget {
-  const AdaptiveSegmented({
+  AdaptiveSegmented({
     super.key,
     required this.segments,
     required this.value,
     required this.onSelectionChanged,
     this.disable = false,
+    this.activeColor,
     this.disabledColor,
-  }) : _type = _SegmentedControlType.adaptive;
+  })  : assert(segments.length >= 2),
+        assert(
+          segments.keys.contains(value),
+          'The value must be one of the keys in the children map.',
+        ),
+        _type = _SegmentedControlType.adaptive;
 
-  const AdaptiveSegmented.material({
+  AdaptiveSegmented.material({
     super.key,
     required this.segments,
     required this.value,
     required this.onSelectionChanged,
     this.disable = false,
+    this.activeColor,
     this.disabledColor,
-  }) : _type = _SegmentedControlType.material;
+  })  : assert(segments.isNotEmpty),
+        assert(
+          segments.keys.contains(value),
+          'The value must be one of the keys in the segments map.',
+        ),
+        _type = _SegmentedControlType.material;
 
-  const AdaptiveSegmented.cupertino({
+  AdaptiveSegmented.cupertino({
     super.key,
     required this.segments,
     required this.value,
     required this.onSelectionChanged,
     this.disable = false,
+    this.activeColor,
     this.disabledColor,
-  }) : _type = _SegmentedControlType.cupertino;
+  })  : assert(segments.length >= 2),
+        assert(
+          segments.keys.contains(value),
+          'The value must be one of the keys in the segments map.',
+        ),
+        _type = _SegmentedControlType.cupertino;
 
   final _SegmentedControlType _type;
 
@@ -55,6 +73,7 @@ class AdaptiveSegmented<T extends Object> extends StatelessWidget {
   final T value;
   final Function(T?) onSelectionChanged;
   final bool disable;
+  final Color? activeColor;
   final Color? disabledColor;
 
   @override
@@ -82,7 +101,7 @@ class AdaptiveSegmented<T extends Object> extends StatelessWidget {
       selected: {value},
       style: ButtonStyle(
         backgroundColor: WidgetStateProperty.resolveWith((states) {
-          if (states.contains(WidgetState.selected)) return Theme.of(context).colorScheme.primary;
+          if (states.contains(WidgetState.selected)) return thumbColor(context);
           return null;
         }),
         side: WidgetStateProperty.resolveWith((states) {
@@ -98,7 +117,7 @@ class AdaptiveSegmented<T extends Object> extends StatelessWidget {
     return CupertinoSlidingSegmentedControl<T>(
       groupValue: value,
       children: segments,
-      thumbColor: disable ? disabledColor ?? Theme.of(context).disabledColor : Theme.of(context).colorScheme.primary,
+      thumbColor: thumbColor(context),
       backgroundColor: Theme.of(context).dividerColor.withValues(alpha: .5),
       onValueChanged: disable
           ? (_) {}
@@ -107,5 +126,10 @@ class AdaptiveSegmented<T extends Object> extends StatelessWidget {
               onSelectionChanged(value);
             },
     );
+  }
+
+  Color thumbColor(BuildContext context) {
+    if (disable) return disabledColor ?? Theme.of(context).disabledColor;
+    return activeColor ?? Theme.of(context).colorScheme.primary;
   }
 }
