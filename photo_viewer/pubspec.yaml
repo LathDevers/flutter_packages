@@ -1,0 +1,18 @@
+name: photo_viewer
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  path_provider: ^2.1.5
+
+dev_dependencies:
+  custom_lint: ^0.6.8
+  flutter_lints: ^5.0.0
+  linter_rules:
+    git:
+      url: git@github.com:LathDevers/flutter_packages.git
+      path: linter_rules

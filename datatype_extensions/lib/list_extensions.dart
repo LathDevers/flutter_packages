@@ -7,7 +7,7 @@ extension ListExtension on List<Widget> {
       newList.add(this[i]);
       if (i != length - 1) {
         newList.add(Container(
-          height: 1,
+          height: .33,
           color: Theme.of(context).dividerColor,
         ));
       }
