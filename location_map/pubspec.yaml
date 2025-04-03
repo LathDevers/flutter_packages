@@ -5,7 +5,7 @@ environment:
   sdk: '>=3.0.0'
 
 dependencies:
-  cached_network_image: ^3.4.0
+  cached_network_image: ^3.4.1
   datatype_extensions:
     git:
       url: git@github.com:LathDevers/flutter_packages.git
@@ -15,14 +15,14 @@ dependencies:
   flutter_map: ^7.0.2
   intl: ^0.19.0
   latlong2: ^0.9.1
-  location: ^7.0.0
+  location: ^7.0.1
   platform_adaptivity:
     git:
       url: git@github.com:LathDevers/flutter_packages.git
       path: platform_adaptivity
 
 dev_dependencies:
-  custom_lint: ^0.6.8
+  custom_lint: ^0.6.10
   flutter_lints: ^5.0.0
   linter_rules:
     git:

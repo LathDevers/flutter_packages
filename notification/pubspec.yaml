@@ -5,12 +5,12 @@ environment:
   sdk: '>=3.0.0'
 
 dependencies:
-  awesome_notifications: ^0.9.2
+  awesome_notifications: ^0.9.3
   flutter:
     sdk: flutter
 
 dev_dependencies:
-  custom_lint: ^0.6.8
+  custom_lint: ^0.6.10
   flutter_lints: ^5.0.0
   linter_rules:
     git:

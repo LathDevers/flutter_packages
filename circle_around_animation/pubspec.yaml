@@ -14,7 +14,7 @@ dependencies:
   widget_mask: ^1.0.0+0
 
 dev_dependencies:
-  custom_lint: ^0.6.8
+  custom_lint: ^0.6.10
   flutter_lints: ^5.0.0
   linter_rules:
     git:

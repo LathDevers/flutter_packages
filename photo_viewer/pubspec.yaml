@@ -10,7 +10,7 @@ dependencies:
   path_provider: ^2.1.5
 
 dev_dependencies:
-  custom_lint: ^0.6.8
+  custom_lint: ^0.6.10
   flutter_lints: ^5.0.0
   linter_rules:
     git:
