@@ -134,7 +134,7 @@ class AdaptiveListTile extends StatelessWidget {
 
   /// Called when the user taps this list tile.
   ///
-  /// If this is a Future<void> Function(), then the [CupertinoListTile] remains activated until the returned future is awaited.
+  /// If this is a `Future<void> Function()`, then the [CupertinoListTile] remains activated until the returned future is awaited.
   final void Function()? onTap;
 
   /// Called when the user long-presses on this list tile.
@@ -414,7 +414,7 @@ class _CupertinoListTile extends StatefulWidget {
   ///
   /// Inoperative if [enabled] is false.
   ///
-  /// If this is a Future<void> Function(), then the [_CupertinoListTile] remains activated until the returned future is awaited.
+  /// If this is a `Future<void> Function()`, then the [_CupertinoListTile] remains activated until the returned future is awaited.
   final void Function()? onTap;
 
   /// Defines the background color of ListTile.

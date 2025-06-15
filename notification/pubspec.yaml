@@ -5,13 +5,13 @@ environment:
   sdk: '>=3.0.0'
 
 dependencies:
-  awesome_notifications: ^0.9.3
+  awesome_notifications: ^0.10.1
   flutter:
     sdk: flutter
 
 dev_dependencies:
-  custom_lint: ^0.6.10
-  flutter_lints: ^5.0.0
+  custom_lint: ^0.7.5
+  flutter_lints: ^6.0.0
   linter_rules:
     git:
       url: git@github.com:LathDevers/flutter_packages.git

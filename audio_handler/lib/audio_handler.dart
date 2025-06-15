@@ -77,7 +77,7 @@ class MusicPlayer {
     _myPlayer.playbackEventStream.listen((_) {}, onError: (Object e, StackTrace stackTrace) => print('A stream error occurred: $e'));
     await _myPlayer.setLoopMode(LoopMode.all);
     try {
-      await _myPlayer.setAudioSource(ConcatenatingAudioSource(children: _playlist.map((e) => e.audioSource).toList())).timeout(const Duration(seconds: 3));
+      await _myPlayer.setAudioSources(_playlist.map((e) => e.audioSource).toList()).timeout(const Duration(seconds: 3));
     } on TimeoutException catch (e) {
       print('TimeoutException: $e');
     }
@@ -116,7 +116,7 @@ class MusicPlayer {
               size: 80 - 4 * 8,
             ),
             padding: EdgeInsets.zero,
-            onPressed: () async => _myPlayer.setAudioSource(ConcatenatingAudioSource(children: _playlist.map((e) => e.audioSource).toList())),
+            onPressed: () async => _myPlayer.setAudioSources(_playlist.map((e) => e.audioSource).toList()),
           );
         }
       },
@@ -196,7 +196,7 @@ class MusicPlayer {
     _playlist.add(storedData);
     if (setPlaylist)
       try {
-        await _myPlayer.setAudioSource(ConcatenatingAudioSource(children: _playlist.map((e) => e.audioSource).toList()));
+        await _myPlayer.addAudioSource(storedData.audioSource);
       } on PlayerException catch (e) {
         // iOS/macOS: maps to NSError.code
         // Android: maps to ExoPlayerException.type
@@ -222,7 +222,7 @@ class MusicPlayer {
     await _myPlayer.pause();
     _playlist.removeAt(index);
     // set playlist
-    await _myPlayer.setAudioSource(ConcatenatingAudioSource(children: _playlist.map((e) => e.audioSource).toList()));
+    await _myPlayer.removeAudioSourceAt(index);
   }
 
   ({String title, String artist, Uint8List cover, int index}) getCurrentSongData() {

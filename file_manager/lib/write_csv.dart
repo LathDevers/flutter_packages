@@ -78,7 +78,7 @@ class WriteCSV {
       await encoder.addFile(_file!);
       await encoder.close();
       // share compressed zip file
-      final ShareResult shareResult = await Share.shareXFiles([XFile(zipPath)]);
+      final ShareResult shareResult = await SharePlus.instance.share(ShareParams(files: [XFile(zipPath)]));
       if (shareResult.status == ShareResultStatus.dismissed) result = false;
       if (shareResult.status == ShareResultStatus.unavailable) result = false;
       // delete all the files

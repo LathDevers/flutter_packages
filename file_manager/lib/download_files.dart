@@ -22,7 +22,10 @@ Future<DownloadResult> shareFiles(List<File> filesToEncode, {required bool delet
     DownloadResult result = DownloadResult.success;
     try {
       // share file
-      final ShareResult shareResult = await Share.shareXFiles([XFile(filesToEncode.first.path)], sharePositionOrigin: sharePositionOrigin);
+      final ShareResult shareResult = await SharePlus.instance.share(ShareParams(
+        files: [XFile(filesToEncode.first.path)],
+        sharePositionOrigin: sharePositionOrigin,
+      ));
       if (shareResult.status == ShareResultStatus.dismissed) result = DownloadResult.dismissed;
       if (shareResult.status == ShareResultStatus.unavailable) result = DownloadResult.unavailable;
       // delete all the files
@@ -47,7 +50,10 @@ Future<DownloadResult> shareFiles(List<File> filesToEncode, {required bool delet
     for (final File file in filesToEncode) await encoder.addFile(file);
     await encoder.close();
     // share compressed zip file
-    final ShareResult shareResult = await Share.shareXFiles([XFile(zipPath)], sharePositionOrigin: sharePositionOrigin);
+    final ShareResult shareResult = await SharePlus.instance.share(ShareParams(
+      files: [XFile(zipPath)],
+      sharePositionOrigin: sharePositionOrigin,
+    ));
     if (shareResult.status == ShareResultStatus.dismissed) result = DownloadResult.dismissed;
     if (shareResult.status == ShareResultStatus.unavailable) result = DownloadResult.unavailable;
     // delete all the files

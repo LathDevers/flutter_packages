@@ -5,7 +5,7 @@ environment:
   sdk: '>=3.0.0'
 
 dependencies:
-  audio_session: ^0.1.25
+  audio_session: ^0.2.2
   datatype_extensions:
     git:
       url: git@github.com:LathDevers/flutter_packages.git
@@ -15,11 +15,11 @@ dependencies:
     git:
       url: git@github.com:LathDevers/flutter_packages.git
       path: file_manager
-  file_picker: ^10.0.0
+  file_picker: ^10.2.0
   flutter:
     sdk: flutter
   id3tag: ^0.2.0
-  just_audio: ^0.9.46
+  just_audio: ^0.10.4
   just_audio_background: ^0.0.1-beta.11
   media_info: ^0.12.0
   path: ^1.9.1
@@ -31,8 +31,8 @@ dependencies:
   shared_preferences: ^2.5.3
 
 dev_dependencies:
-  custom_lint: ^0.6.10
-  flutter_lints: ^5.0.0
+  custom_lint: ^0.7.5
+  flutter_lints: ^6.0.0
   linter_rules:
     git:
       url: git@github.com:LathDevers/flutter_packages.git
