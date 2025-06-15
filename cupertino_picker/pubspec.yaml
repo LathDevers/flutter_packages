@@ -9,8 +9,8 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
-  custom_lint: ^0.6.10
-  flutter_lints: ^5.0.0
+  custom_lint: ^0.7.5
+  flutter_lints: ^6.0.0
   linter_rules:
     git:
       url: git@github.com:LathDevers/flutter_packages.git
